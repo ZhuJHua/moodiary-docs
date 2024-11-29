@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "心绪日记"
+  name: "心绪日记（站点装修中。。。）"
   text: "跨平台开源日记应用"
   tagline: My great project tagline
   actions:
