@@ -10,6 +10,7 @@ export default defineConfig({
             {text: 'Home', link: '/'},
             {text: 'Examples', link: '/markdown-examples'}
         ],
+       // logo: {light: '/light_logo.svg', dark: '/dark_logo.svg'},
 
         sidebar: [
             {
@@ -22,7 +23,7 @@ export default defineConfig({
         ],
 
         socialLinks: [
-            {icon: 'github', link: 'https://github.com/vuejs/vitepress'}
+            {icon: 'github', link: 'https://github.com/ZhuJHua/moodiary'}
         ]
     }
 })
