@@ -2,30 +2,30 @@
 layout: home
 
 hero:
-  name: "心绪日记"
-  text: "跨平台开源日记应用"
-  tagline: 采用 Flutter 构建，很优雅，很简洁
+  name: "Moodiary"
+  text: "Cross-platform open source diary application"
+  tagline: Built with Flutter&Rust, very elegant and simple
 
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: Quick Start
       link: /markdown-examples
     - theme: alt
-      text: API Examples
+      text: Official forum
       link: /api-examples
 
 features:
-  - title: 🌍 跨平台支持
-    details: 支持 Windows, MacOS, Linux, Android, iOS
+  - title: 🌍 CrossPlatformSupport
+    details: Support Windows, MacOS, Linux, Android, iOS
   - title: 🎨 Material Design
-    details: 界面直观且用户友好，支持多种主题
-  - title: 📝 图文混排
-    details: 支持插入图片、视频、音频等多媒体内容
-  - title: 📅 日历视图
-    details: 支持日历时间线视图，方便查看历史记录
-  - title: 📂 局域网与WebDAV
-    details: 支持局域网同步、WebDAV 同步等多种同步方式
-  - title: 🔤 首行缩进
-    details: 更加规范的中文排版，使得阅读更加舒适
+    details: Intuitive and user-friendly interface, supports multiple themes
+  - title: 📝 Multiple editors
+    details: Supports markdown, plain text, rich text and other forms of text editing.
+  - title: 📅 CalendarView
+    details: Supports calendar timeline view for easy viewing of history records
+  - title: 📂 LAN Sync and WebDAV
+    details: Supports multiple synchronization methods such as LAN synchronization and WebDAV synchronization
+  - title: 🔤 First Line Indent
+    details: More standardized Chinese typesetting makes reading more comfortable
 ---
 
