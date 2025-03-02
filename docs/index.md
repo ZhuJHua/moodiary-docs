@@ -4,15 +4,15 @@ layout: home
 hero:
   name: "Moodiary"
   text: "Cross-platform open source diary application"
-  tagline: Built with Flutter&Rust, very elegant and simple
+  tagline: Built with Flutter & Rust, very elegant and simple
 
   actions:
-    - theme: does
-      text: 编译教程
-      link: /does.md
+    - theme: brand
+      text: Quick Start
+      link: /intro/quick-start
     - theme: alt
-      text: Official forum
-      link: /api-examples
+      text: Compilation
+      link: /compile/prepare
 
 features:
   - title: 🌍 CrossPlatformSupport
