@@ -7,9 +7,9 @@ hero:
   tagline: Built with Flutter&Rust, very elegant and simple
 
   actions:
-    - theme: brand
-      text: Quick Start
-      link: /markdown-examples
+    - theme: does
+      text: 编译教程
+      link: /does.md
     - theme: alt
       text: Official forum
       link: /api-examples
