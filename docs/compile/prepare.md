@@ -1,4 +1,5 @@
-# 准备运行环境
+# 编译前准备
+常见问题
 ## 开发环境要求
 **Flutter SDK** (>= 3.27.0 Stable) (It is recommended to use FVM to manage the Flutter version)
 **Dart** (>= 3.6.0)
@@ -161,40 +162,39 @@ flutter doctor 检查环境状况
 一般情况 检查应该是全部通过的
 如果不通过就看下面的失败示例
 失败实例
-[!] Android toolchain - develop for Android devices
+> [!] Android toolchain - develop for Android devices
+> 
+>  X Unable to locate Android SDK.
+> 
+>  Install Android Studio from: https://developer.android.com/studio/index.html
+> 
+>  On first launch it will assist you in installing the Android SDK components.
+> 
+>  (or visit https://flutter.dev/docs/get-started/install/windows#android-setup for detailed instructions).
+> 
+>  If the Android SDK has been installed to a custom location, please use
+> 
+>  flutter config --android-sdk to update to that location.
+> 
+>  X No valid Android SDK platforms found in D:evnandroid*SDK**platforms. Candidates were:*
 
- X Unable to locate Android SDK.
-
- Install Android Studio from: https://developer.android.com/studio/index.html
-
- On first launch it will assist you in installing the Android SDK components.
-
- (or visit https://flutter.dev/docs/get-started/install/windows#android-setup for detailed instructions).
-
- If the Android SDK has been installed to a custom location, please use
-
- flutter config --android-sdk to update to that location.
-
- X No valid Android SDK platforms found in D:evnandroid*SDK**platforms. Candidates were:*
-
- - android-31
-
-[！Android工具链-为Android设备开发
-X无法定位Android SDK。
-安装Android Studio从:https://developer.android.com/studio/index.html
-在第一次启动时，它将帮助您安装Android SDK组件。
-(或https://flutter.dev/docs/get-started/install/windows#android-setup获取详说明)
-如果Android SDK已经安装到自定义位置，请使用
-' flutter config -android-sdk '更新到该位置。
-在D:evnandroid*SDK**平台中找不到有效的Android SDK平台。候选人:*
-——android-31
+>  - android-31
+> 
+> [！Android工具链-为Android设备开发
+> X无法定位Android SDK。
+> 安装Android Studio从:https://developer.android.com/studio/index.html
+> 在第一次启动时，它将帮助您安装Android SDK组件。
+> (或https://flutter.dev/docs/get-started/install/windows#android-setup获取详说明)
+> 如果Android SDK已经安装到自定义位置，请使用
+> ' flutter config -android-sdk '更新到该位置。
+> 在D:evnandroid*SDK**平台中找不到有效的Android SDK平台。候选人:*
+> ——android-31
 如果还报错就添加，之后再尝试 flutter doctor
 %ANDROID*HOME%**platform-tools*
 %ANDROID*HOME%**tools *
 两个path变量
 
 检查全通过，表示环境配置已经完成了
-在这里插入图片描述
 5、设置Android模拟器
 **注意！推荐使用实机演示！**
 在您的机器上启用 VM acceleration .
@@ -219,6 +219,8 @@ Dart插件： 提供代码分析 (输入代码时进行验证、代码补全等)
 （3）选择 Browse repositories…, 选择 Flutter 插件并点击 install.
 
 （4）重启Android Studio后插件生效.
+---
+
 相关视频教程：
 https://www.bilibili.com/video/BV1ag411M7VG/?spm_id_from=333.788.recommend_more_video.1
 https://blog.csdn.net/qq_40976321/article/details/121806555
