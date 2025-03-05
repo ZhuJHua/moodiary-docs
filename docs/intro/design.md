@@ -1,9 +1,3 @@
----
-created:  2021-08-09 10:18
-modified: 2022-01-12 周三 21:40
-aliases: [Markdown教程,MD教程]
-tags: ["#Markdown #Obsidian"] 
----
 > 转载自https://forum-zh.obsidian.md/t/topic/435
 # 什么是 Markdown?
 1. **Markdown** 是一款轻量级标记语言，不同于HTML **(Hypertext Markup Language)**，**Markdown** 的语法非常简单，且容易上手
