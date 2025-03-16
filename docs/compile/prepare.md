@@ -1,4 +1,5 @@
 # 编译前准备
+**English wiki see here：https://separated-taleggio-799.notion.site/Preparing-for-Compilation-1b8c821da82580a38b7fe1ec501f7ddb
 ## 开发环境要求
 **Flutter SDK** (>= 3.27.0 Stable) (It is recommended to use FVM to manage the Flutter version)
 **Dart** (>= 3.6.0)
