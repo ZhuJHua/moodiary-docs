@@ -1,5 +1,5 @@
 # 编译前准备
-**英文版教程可以看这里：** [Preparing for Compilation](https://separated-taleggio-799.notion.site/Preparing-for-Compilation-1b8c821da82580a38b7fe1ec501f7ddb)
+**英文（English）版教程可以看这里：** [Preparing for Compilation](https://separated-taleggio-799.notion.site/englishxinxu?pvs=4)
 
 ## 开发环境要求
 - **Flutter SDK** (版本 >= 3.27.0 Stable，建议使用 FVM 管理 Flutter 版本)
