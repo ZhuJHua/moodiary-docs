@@ -5,6 +5,16 @@ export default defineConfig({
     title: "Moodiary",
     description: "Cross-platform open source diary application",
     lastUpdated: true,
+    head: [
+        [
+            'script',
+            {
+                defer: '',
+                src: 'https://stats.yooss.cn/meow.js',
+                'data-website-id': 'ddf830ec-6cc7-47f8-94aa-97c4406f8459'
+            }
+        ]
+    ],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
 //         nav: [
