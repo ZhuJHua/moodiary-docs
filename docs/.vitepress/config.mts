@@ -24,12 +24,12 @@ export default defineConfig({
                 ]
             },
             {
-                text: 'API配置',
+                text: 'API 配置',
                 items: [
-                    {text: '天气API配置', link: '/USEAPI/weather_API.md'},
-                    {text: 'AI大模型配置', link: '/USEAPI/AI_API.md'},
-                    {text: '地图API配置', link: '/USEAPI/map_api.md'},
-                    {text: 'WebDav配置', link: '/USEAPI/sync_API.md'},
+                    {text: '天气 API 配置', link: '/api/weather'},
+                    {text: 'AI 大模型配置', link: '/api/ai'},
+                    {text: '地图 API 配置', link: '/api/map'},
+                    {text: 'WebDav 配置', link: '/api/sync'},
                 ]
             },
             {
