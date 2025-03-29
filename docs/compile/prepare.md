@@ -1,5 +1,4 @@
 # 编译前准备
-**英文（English）版教程可以看这里：** [Preparing for Compilation](https://separated-taleggio-799.notion.site/englishxinxu?pvs=4)
 **官方文档：**
 [谷歌官方教程](https://docs.flutter.cn/get-started/install/windows/mobile)
 ## 开发环境要求

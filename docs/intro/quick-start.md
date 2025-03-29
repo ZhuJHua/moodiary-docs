@@ -3,9 +3,9 @@
 欢迎使用 **Moodiary**，一款跨平台的开源日记应用。无论你是想记录日常生活、整理思绪，还是进行创作，Moodiary 都能为你提供一个简洁优雅的写作环境。以下是如何快速上手的步骤：
 
 ## 1. 下载与安装
-Moodiary 支持多种平台，包括 Windows、macOS、Linux、Android 和 iOS。你可以访问 [Moodiary 官方网站](https://docs.moodiary.net/) 下载适合你设备的版本。
+Moodiary 支持多种平台，包括 Windows、macOS、Linux、Android 和 iOS。你可以访问 [1.Moodiary Github仓库（推荐）](https://github.com/ZhuJHua/moodiary) |[2.123云盘](https://github.com/ZhuJHua/moodiary)|[3.蓝奏云](https://github.com/ZhuJHua/moodiary)|[4.Github镜像网址](https://github.com/ZhuJHua/moodiary)下载适合你设备的版本。
 
-- **Windows/macOS/Linux**：下载对应的安装包，按照提示完成安装。
+- **Windows/macOS/Linux**：下载对应的安装包，按照提示完成安装。（Windows用户无法安装看这里：https://separated-taleggio-799.notion.site/Windows-1c2c821da82580c88a09cb41fe818f62?pvs=4）
 - **Android/iOS**：通过应用商店搜索 "Moodiary" 并安装。
 
 ## 2. 创建你的第一篇日记
