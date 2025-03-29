@@ -34,12 +34,12 @@ export default defineConfig({
                 ]
             },
             {
-                text: '功能指南',
+                text: 'API 配置',
                 items: [
-                    {text: '撰写日记', link: '/guide/write'},
-                    {text: '跨设备同步', link: '/guide/sync'},
-                    {text: '数据备份', link: '/guide/backup'},
-                    {text: '个性化', link: '/guide/customize'},
+                    {text: '天气 API 配置', link: '/api/weather'},
+                    {text: 'AI 大模型配置', link: '/api/ai'},
+                    {text: '地图 API 配置', link: '/api/map'},
+                    {text: 'WebDav 配置', link: '/api/sync'},
                 ]
             },
             {
