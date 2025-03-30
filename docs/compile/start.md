@@ -1,94 +1,145 @@
-# 三、获取项目源码以及编译项目
-## 5. 克隆 GitHub 仓库
-1. **打开终端**：你可以用 CMD、PowerShell 或者 Git Bash，随便哪个都行。
-2. **进入目标目录**：先导航到你打算放项目的文件夹，比如：
-   ```bash
-   cd C:\moodiary
-   ```
-3. **克隆仓库**：运行以下命令把项目从 GitHub 上拉下来：
-   ```bash
-   git clone https://github.com/ZhuJHua/moodiary.git
-   ```
-4. **进入项目目录**：克隆完成后，进到项目文件夹：
-   ```bash
-   cd moodiary
-   ```
+---
+name: Robot Editor
+avatar: <any image file>
+gravatar: gravatarid
+twitter: '@twitter'
+---
 
-## 7. 项目目录结构解析
+# 开始编译
+
+相信你已经安装好了 Flutter 和 Dart 环境，并且配置好了 Android Studio 或 Visual Studio Code 等 IDE。
+
+现在我们来看看如何编译和运行 Moodiary 项目。
+
+## 克隆 GitHub 仓库
+
+首先，你需要从 GitHub 上克隆 Moodiary 的源代码。打开终端，运行以下命令：
+
+```bash
+git clone https://github.com/ZhuJHua/moodiary.git
+```
+
+或者使用 SSH：
+
+```bash
+git clone git@github.com:ZhuJHua/moodiary.git
+```
+
+然后进入项目目录：
+
+```bash
+cd moodiary
+```
+
+## 项目目录结构解析
 
 ```
-moodiary/
-├── lib/                  # 项目的主要代码目录
-│   ├── main.dart         # 应用入口文件
-│   ├── models/           # 数据模型定义
-│   ├── services/         # 业务逻辑和服务层
-│   ├── pages/            # 页面组件
-│   ├── widgets/          # 可复用的 UI 组件
-│   └── utils/            # 工具类和辅助函数
-├── assets/               # 静态资源文件（如图片、字体等）
-├── test/                 # 单元测试和集成测试
-├── pubspec.yaml          # 项目依赖配置文件
-├── README.md             # 项目说明文档
-└── android/              # Android 平台相关配置
-└── ios/                  # iOS 平台相关配置
+moodiary             
+├── lib  
+│   ├── api          # API 接口  
+│   ├── common       # 普通变量  
+│   ├── components   # 组件  
+│   ├── config       # 配置文件  
+│   ├── gen          # 代码生成  
+│   ├── l10n         # 国际化  
+│   ├── merge        # 合并  
+│   ├── pages        # 页面  
+│   ├── presentation # 持久化  
+│   ├── router       # 路由  
+│   ├── services     # 服务  
+│   └── utils        # 工具类  
+├── rust             # Rust 代码
+└── test             # 测试代码
+
 ```
 
 ### 详细说明
-1. **`lib/` 目录**：
-   - 这是 Flutter 项目的核心代码目录，所有的“干货”都在这儿。
-   - `main.dart` 是应用的入口文件，启动应用时第一个跑的就是它。
-   - `models/` 目录存放数据模型，通常是和后端交互的数据结构。
-   - `services/` 目录放业务逻辑，比如网络请求、数据处理这些。
-   - `pages/` 目录放应用的不同页面组件，每个页面一个文件。
-   - `widgets/` 目录放可复用的 UI 组件，比如按钮、卡片这些。
-   - `utils/` 目录放工具类，比如日期格式化、字符串处理这些。
 
-2. **`assets/` 目录**：
-   - 这里放静态资源文件，比如图片、字体、配置文件之类的。
-   - 记得在 `pubspec.yaml` 里声明这些资源文件，不然用不了。
+- **lib**：Flutter 代码目录，包含了所有的 Dart 代码
+- **rust**：Rust 代码目录，包含了所有的 Rust 代码
+- **test**：测试代码目录，包含了所有的测试代码
+- **pubspec.yaml**：Flutter 项目的配置文件，包含了项目的依赖、版本等信息
 
-3. **`test/` 目录**：
-   - 这里放单元测试和集成测试代码，用来验证应用的功能和逻辑对不对。
-   - 写测试是个好习惯，能帮你省不少事儿。
+## 设备准备
 
-4. **`pubspec.yaml` 文件**：
-   - 这是 Flutter 项目的配置文件，管依赖、版本信息和资源声明。
-   - 运行 `flutter pub get` 就能安装所有依赖。
+### Android 真机
 
-5. **`android/` 和 `ios/` 目录**：
-   - 分别放 Android 和 iOS 平台的特定配置。
-   - 一般不用动，除非你要调一些平台相关的设置。
+1. 进到 设置 > 关于手机，连续点击 版本号 直到出现 “你已成为开发者”。然后在 开发者选项 里打开 USB 调试
+2. 用 USB 数据线把设备连到电脑，并在手机上点击 “允许 USB 调试”，当然你也可以选择无线调试
+3. 在终端中运行 `flutter devices`，检查设备是否显示在列表中
 
-## 8. 运行项目
-1. **确保环境已配好**：Flutter 和相关的环境都得装好。
-2. **安装依赖**：在项目根目录下运行以下命令：
-   ```bash
-   flutter pub get
-   ```
-3. **运行项目**：
-###   设备准备
-#### 启用开发者模式：
+### Android 模拟器
 
-##### Android：进到 设置 > 关于手机，连续点击 版本号 直到出现 “你已成为开发者”。然后在 开发者选项 里打开 USB 调试。
-##### iOS：用数据线把设备连到电脑，然后在设备上信任电脑。
-#### 连接设备：
+1. 在 Android Studio 中打开 AVD 管理器，创建一个新的虚拟设备，选择合适的配置
+2. 启动虚拟设备，确保它能够正常运行
+3. 在终端中运行 `flutter devices`，检查虚拟设备是否显示在列表中
 
-用 USB 数据线把设备连到电脑。
-#### 配置系统
-##### 对于 Android：
+### iOS 真机
 
-确保 Android 设备在设备列表里显示。可以运行 `flutter devices` 来检查。
-如果设备没显示，检查 USB 驱动程序是不是装好了。
-##### 对于 iOS：
+iOS 调试相比 Android 要麻烦一些，主要是因为苹果的生态系统比较封闭。以下是一些步骤：
 
-用 Xcode 打开项目，确保设备被识别。
-可能需要设置开发者账号并信任设备。
-启动调试
-#### 运行应用：
+#### 启用开发者模式
 
-##### 在终端里导航到你的 Flutter 项目目录。
-运行 `flutter run`，Flutter 会自动检测连接的设备并在上面跑应用。
-##### 用 IDE：
+对于 iOS 16 以上的设备：设置>隐私与安全>开发者模式
 
-在 Android Studio 或 Visual Studio Code 里打开 Flutter 项目。
-选目标设备（连着的真机），然后点运行按钮。
+## 调试项目（Debug）
+
+在 Debug 模式下，依赖于 Dart 的 JIT 能力，可以使用 Flutter 的热重载功能，快速查看代码修改的效果，但是需要注意的是，Debug
+模式下的性能远低于 Release
+模式，只适合开发和调试使用。
+
+### 拉取依赖
+
+在终端中运行以下命令，拉取项目依赖：
+
+```bash
+flutter pub get
+```
+
+### 运行项目
+
+在终端中运行以下命令，运行项目：
+
+```bash
+flutter run
+```
+
+## 编译项目（Release）
+
+在 Release 模式下，Dart 会进行 AOT 编译，生成原生代码，性能更高，但是编译时间较长，同时需要注意的是，Release 模式需要配置签名文件。
+
+### 配置签名文件
+
+#### Android
+
+在 `android/app/build.gradle` 文件中，找到以下代码：
+
+```groovy
+android {
+    ...
+    signingConfigs {
+        config {
+            keyAlias 'your-key-alias'
+            keyPassword 'your-key-password'
+            storeFile file('your-key-store-file')
+            storePassword 'your-store-password'
+        }
+    }
+}
+```
+
+将 `your-key-alias`、`your-key-password`、`your-key-store-file` 和 `your-store-password` 替换为你的签名文件信息。
+
+#### iOS
+
+iOS 比较特殊，需要在 Xcode 中配置签名文件。打开 `ios/Runner.xcworkspace` 文件，选择 Runner 项目，在 Signing & Capabilities
+配置你的签名文件。同时需要注意，iOS 的签名文件需要在 Apple Developer
+网站上申请，具体步骤可以参考 [Apple Developer](https://developer.apple.com/) 的文档。
+
+### MacOS
+
+同上，只是目录不同，打开 `macos/Runner.xcworkspace` 文件。
+
+### Windows
+
+待补充
