@@ -49,9 +49,10 @@ export default defineConfig({
                 text: '第三方 API 配置',
                 items: [
                     {text: '天气 API 配置', link: '/api/weather'},
-                    {text: 'AI 大模型配置', link: '/api/ai'},
                     {text: '地图 API 配置', link: '/api/map'},
                     {text: 'WebDav 配置', link: '/api/sync'},
+                    {text: 'AI 大模型配置', link: '/api/ai'},
+                    
                 ]
             },
             {
