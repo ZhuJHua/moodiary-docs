@@ -1,16 +1,23 @@
 # 快速开始
 
-欢迎使用 Moodiary！本指南将帮助你快速上手，了解如何安装、创建日记、使用日历视图、同步数据以及个性化设置。
+欢迎使用 Moodiary！本Wiki将帮助你快速上手，了解如何安装、创建日记、使用日历视图、同步数据以及个性化设置。
+## 加入水友群
 
+- 官方论坛：[Moodiary](https://answer.moodiary.net/)
+- Telegram 频道：[openmoodiary](https://t.me/openmoodiary)
+- QQ
+  交流群：[76001426](https://qm.qq.com/cgi-bin/qm/qr?k=xGr0TNp_X1z3XEn09_iE_iGSLolQwl6Y&jump_from=webapi&authKey=ZmSb2oEd94FSXxBXRBq53hgTjjvcfmgkQrduB3uL12XtRylPmRlO2OdFz6R25tIo)
 ## 下载与安装
 
 Moodiary 支持多种平台，你可以根据自己的设备选择合适的安装方式：
 
-- **Windows**：通过 Microsoft Store 搜索 "Moodiary" 并安装（正在提交商店中，敬请期待）
-- **MacOS**：通过 AppStore 搜索 "Moodiary" 并安装（正在提交商店中，敬请期待）
-- **Android**：在 Github 的 [Release](https://github.com/ZhuJHua/moodiary/releases) 页面下载最新的 APK 文件并安装
-- **iOS**：通过 AppStore 搜索 "Moodiary" 并安装（正在提交商店中，敬请期待）
+- **Windows**：[Microsoft Store](https://github.com/ZhuJHua/moodiary/releases) ([Windows 7系统？](https://github.com/ZhuJHua/moodiary/releases))
+- **MacOS**：[AppStore](https://github.com/ZhuJHua/moodiary/releases)
+- **Android**：通过 [Github](https://github.com/ZhuJHua/moodiary/releases) 下载[（中国大陆用户？）](https://github.com/ZhuJHua/moodiary/releases)
+- **iOS**：[AppStore](https://github.com/ZhuJHua/moodiary/releases)
 - **Linux**：敬请期待
+
+
 
 ## 创建你的第一篇日记
 
