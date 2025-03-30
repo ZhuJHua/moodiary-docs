@@ -33,3 +33,10 @@
 - 参与社区讨论
 
 无论你是以何种方式参与，Moodiary 都欢迎你的加入。我们相信，只有通过社区的共同努力，才能让 Moodiary 变得更好。
+
+## 联系我们
+
+- 官方论坛：[Moodiary](https://answer.moodiary.net/)
+- Telegram 频道：[openmoodiary](https://t.me/openmoodiary)
+- QQ
+  交流群：[76001426](https://qm.qq.com/cgi-bin/qm/qr?k=xGr0TNp_X1z3XEn09_iE_iGSLolQwl6Y&jump_from=webapi&authKey=ZmSb2oEd94FSXxBXRBq53hgTjjvcfmgkQrduB3uL12XtRylPmRlO2OdFz6R25tIo)
