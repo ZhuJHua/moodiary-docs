@@ -2,12 +2,12 @@
 
 1.注册账号使用邮箱注册 首次使用填写名字随便写一个然后就可以访问首页了
 官网注册
-:https://dev.qweather.com/
+: https://dev.qweather.com/
 
 工作台登录
-:https://console.qweather.com/home?lang=zh
+: https://console.qweather.com/home?lang=zh
 
-2.项目管理 填写项目名称 创建凭据 填写平均名称通过第二种方式API的方式生成key
+2.左上角选择项目管理 填写项目名称 创建凭据 填写平均名称通过第二种方式API的方式生成key
 
 第一种方式和风天气官方认为更安全
 但是需要额外配置
