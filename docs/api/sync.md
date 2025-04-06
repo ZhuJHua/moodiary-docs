@@ -11,5 +11,7 @@
  仪表盘 备份与同步
 用户名 邮箱
 密码就是刚才生成的密码
-服务器地址 https://dav.jianguoyun.com/dav/
+服务器地址
+
+https://dav.jianguoyun.com/dav/
 
