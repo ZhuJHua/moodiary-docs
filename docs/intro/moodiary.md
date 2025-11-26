@@ -39,4 +39,4 @@
 - 官方论坛：[Moodiary](https://answer.moodiary.net/)
 - Telegram 频道：[openmoodiary](https://t.me/openmoodiary)
 - QQ
-  交流群：[76001426](https://qm.qq.com/cgi-bin/qm/qr?k=xGr0TNp_X1z3XEn09_iE_iGSLolQwl6Y&jump_from=webapi&authKey=ZmSb2oEd94FSXxBXRBq53hgTjjvcfmgkQrduB3uL12XtRylPmRlO2OdFz6R25tIo)
+  交流群：[760014526](https://qm.qq.com/cgi-bin/qm/qr?k=xGr0TNp_X1z3XEn09_iE_iGSLolQwl6Y&jump_from=webapi&authKey=ZmSb2oEd94FSXxBXRBq53hgTjjvcfmgkQrduB3uL12XtRylPmRlO2OdFz6R25tIo)
