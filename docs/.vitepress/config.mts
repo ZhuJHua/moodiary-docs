@@ -11,7 +11,7 @@ export default defineConfig({
             {
                 defer: '',
                 src: 'https://stats.yooss.cn/meow.js',
-                'data-website-id': 'ddf830ec-6cc7-47f8-94aa-97c4406f8459'
+                'data-website-id': '71047778-6685-46ea-b280-d2c814d7b202'
             }
         ],
         ['link', {rel: 'icon', href: '/favicon.ico'}]
