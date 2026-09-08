@@ -9,23 +9,43 @@ import { defineConfig } from 'vitepress'
 // default theme persists explicit manual switches (see theme/index.ts),
 // which then take precedence over detection.
 
-/** Chinese tokenisation: CJK bigrams + plain word tokens, so local search hits Chinese. */
+/**
+ * Tokenise for MiniSearch: Han runs become overlapping bigrams, everything
+ * else stays a whole word.  Chinese has no spaces, so without the bigrams a
+ * whole sentence indexes as one unmatchable token.
+ *
+ * A segment can mix scripts, and Han and Latin letters are both `\p{L}`, so
+ * `WebDAV同步` arrives here as one segment.  Splitting it into script runs
+ * first keeps `webdav` searchable; bigramming the segment as a whole would
+ * shred it into `w`, `we`, `eb` and match nothing useful.
+ */
 function tokenize(text: string): string[] {
   const tokens: string[] = []
   for (const segment of text.split(/[^\p{L}\p{N}_]+/u)) {
     if (!segment) continue
-    if (/[\u3400-\u9fff]/.test(segment)) {
-      const chars = [...segment]
+    for (const run of segment.match(/\p{Script=Han}+|\P{Script=Han}+/gu) ?? []) {
+      if (!/\p{Script=Han}/u.test(run)) {
+        tokens.push(run.toLowerCase())
+        continue
+      }
+      const chars = [...run]
       for (let i = 0; i < chars.length; i++) {
         tokens.push(chars[i]!)
         if (i + 1 < chars.length) tokens.push(chars[i]! + chars[i + 1]!)
       }
-    } else {
-      tokens.push(segment.toLowerCase())
     }
   }
   return tokens
 }
+
+/**
+ * Prefix-match the term being typed, and only that one.  MiniSearch defaults
+ * to prefix-matching every term, which under bigram tokenisation lets the
+ * trailing Han unigram of a finished query (the `步` of `同步`) match every
+ * `步*` bigram in the index and drag unrelated pages up the ranking.
+ */
+const prefixLastTermOnly = (_term: string, index: number, terms: string[]) =>
+  index === terms.length - 1
 
 /**
  * Redirect visitors to the locale their browser prefers.
@@ -189,15 +209,6 @@ export default defineConfig({
 
         outline: { level: [2, 3], label: 'On this page' },
 
-        search: {
-          provider: 'local',
-          options: {
-            translations: {
-              button: { buttonText: 'Search docs', buttonAriaLabel: 'Search docs' },
-            },
-          },
-        },
-
         editLink: {
           pattern:
             'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
@@ -322,32 +333,6 @@ export default defineConfig({
 
         outline: { level: [2, 3], label: '本页目录' },
 
-        search: {
-          provider: 'local',
-          options: {
-            miniSearch: {
-              options: { tokenize },
-              searchOptions: { tokenize },
-            },
-            translations: {
-              button: { buttonText: '搜索文档', buttonAriaLabel: '搜索文档' },
-              modal: {
-                displayDetails: '显示详细列表',
-                resetButtonTitle: '清空关键词',
-                backButtonTitle: '返回',
-                noResultsText: '没有找到相关结果',
-                footer: {
-                  selectText: '选择',
-                  navigateText: '切换',
-                  navigateUpKeyAriaLabel: '上一个',
-                  navigateDownKeyAriaLabel: '下一个',
-                  closeText: '关闭',
-                },
-              },
-            },
-          },
-        },
-
         editLink: {
           pattern:
             'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
@@ -388,5 +373,24 @@ export default defineConfig({
     logo: { light: '/logo-light.svg', dark: '/logo-dark.svg' },
     socialLinks: [{ icon: 'github', link: 'https://github.com/ZhuJHua/moodiary' }],
     externalLinkIcon: true,
+
+    // Search must live here, at the site level.  The build plugin reads
+    // `site.themeConfig.search.provider` to decide whether to emit an index,
+    // and the client compiles the search box in behind a `__VP_LOCAL_SEARCH__`
+    // define derived from the same place.  Neither looks at
+    // `locales.*.themeConfig`, so a copy nested there silently disables search
+    // altogether.  Per-locale strings belong in `options.locales` instead,
+    // which the search components do resolve against the active locale.
+    search: {
+      provider: 'local',
+      options: {
+        // One index is built per locale, all of them with these options, so
+        // the tokenizer has to handle English and Chinese at once.
+        miniSearch: {
+          options: { tokenize },
+          searchOptions: { tokenize, prefix: prefixLastTermOnly },
+        },
+      },
+    },
   },
 })
