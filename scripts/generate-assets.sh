@@ -28,7 +28,11 @@ rsvg-convert -w 512 -h 512 "$brand/logo_light.svg" -o "$tmp/512.png"
 rsvg-convert -w 180 -h 180 "$brand/logo_light.svg" -o "$tmp/180.png"
 rsvg-convert -w 32 -h 32 "$brand/logo_light.svg" -o "$out/favicon-32.png"
 
-magick "$tmp/512.png" -background white -alpha remove -alpha off \
-  -resize 180x180 "$out/apple-touch-icon.png"
+# Touch icon: trim the edge-to-edge mark, scale it to ~72% of the canvas and
+# centre it on a white 180x180 tile — full-bleed reads as cramped on an iOS
+# home screen.
+magick "$tmp/512.png" -trim +repage -resize 130x130 \
+  -background white -alpha remove -alpha off \
+  -gravity center -extent 180x180 "$out/apple-touch-icon.png"
 
 echo "✔ wrote icons to $out"
