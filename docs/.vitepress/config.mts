@@ -390,10 +390,21 @@ export default defineConfig({
           options: { tokenize },
           searchOptions: { tokenize, prefix: prefixLastTermOnly },
         },
-        translations: {
-          button: { buttonText: 'Search docs', buttonAriaLabel: 'Search docs' },
-        },
+        // The search box's own UI strings, not document content.  The
+        // component ships English defaults, so a locale only needs an entry
+        // for what it overrides; English is here purely to say "Search docs"
+        // instead of the stock "Search".
+        //
+        // A sibling `translations` key would also work, but it applies to
+        // every locale at once and is only escaped where a locale happens to
+        // override the same key.  Keeping both languages under `locales`
+        // makes them independent.
         locales: {
+          root: {
+            translations: {
+              button: { buttonText: 'Search docs', buttonAriaLabel: 'Search docs' },
+            },
+          },
           zh: {
             translations: {
               button: { buttonText: '搜索文档', buttonAriaLabel: '搜索文档' },
@@ -404,10 +415,12 @@ export default defineConfig({
                 noResultsText: '没有找到相关结果',
                 footer: {
                   selectText: '选择',
+                  selectKeyAriaLabel: '回车键',
                   navigateText: '切换',
                   navigateUpKeyAriaLabel: '上一个',
                   navigateDownKeyAriaLabel: '下一个',
                   closeText: '关闭',
+                  closeKeyAriaLabel: 'Esc 键',
                 },
               },
             },
