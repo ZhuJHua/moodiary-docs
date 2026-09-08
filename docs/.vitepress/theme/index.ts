@@ -9,13 +9,14 @@ import './generated/monochrome.css'
 import './style.css'
 
 /**
- * Remember manual locale switches.
+ * Remember explicit locale switches.
  *
- * The inline script in config.mts only redirects *first-time* visitors (while
- * `vitepress-locale-preferred` is unset).  VitePress' built-in locale
- * switcher is plain links, so we watch every click and persist the visitor's
- * choice whenever they navigate across a locale boundary — otherwise the
- * auto-detect would drag them back to their system language.
+ * The inline script in config.mts detects the browser language on every hard
+ * page load but stores nothing — so auto-detection can never trap visitors in
+ * the wrong locale.  VitePress' built-in locale switcher is plain links, so we
+ * watch every click and persist the visitor's choice whenever they
+ * deliberately navigate across a locale boundary; from then on their explicit
+ * choice (`vitepress-locale-choice`) wins over detection.
  */
 function watchLocaleSwitches() {
   document.addEventListener(
@@ -30,7 +31,7 @@ function watchLocaleSwitches() {
         const fromZh =
           location.pathname === '/zh' || location.pathname.startsWith('/zh/')
         if (toZh !== fromZh) {
-          localStorage.setItem('vitepress-locale-preferred', toZh ? 'zh' : 'en')
+          localStorage.setItem('vitepress-locale-choice', toZh ? 'zh' : 'en')
         }
       } catch {
         // Ignore malformed URLs.
