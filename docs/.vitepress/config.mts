@@ -9,23 +9,43 @@ import { defineConfig } from 'vitepress'
 // default theme persists explicit manual switches (see theme/index.ts),
 // which then take precedence over detection.
 
-/** Chinese tokenisation: CJK bigrams + plain word tokens, so local search hits Chinese. */
+/**
+ * Tokenise for MiniSearch: Han runs become overlapping bigrams, everything
+ * else stays a whole word.  Chinese has no spaces, so without the bigrams a
+ * whole sentence indexes as one unmatchable token.
+ *
+ * A segment can mix scripts, and Han and Latin letters are both `\p{L}`, so
+ * `WebDAV同步` arrives here as one segment.  Splitting it into script runs
+ * first keeps `webdav` searchable; bigramming the segment as a whole would
+ * shred it into `w`, `we`, `eb` and match nothing useful.
+ */
 function tokenize(text: string): string[] {
   const tokens: string[] = []
   for (const segment of text.split(/[^\p{L}\p{N}_]+/u)) {
     if (!segment) continue
-    if (/[\u3400-\u9fff]/.test(segment)) {
-      const chars = [...segment]
+    for (const run of segment.match(/\p{Script=Han}+|\P{Script=Han}+/gu) ?? []) {
+      if (!/\p{Script=Han}/u.test(run)) {
+        tokens.push(run.toLowerCase())
+        continue
+      }
+      const chars = [...run]
       for (let i = 0; i < chars.length; i++) {
         tokens.push(chars[i]!)
         if (i + 1 < chars.length) tokens.push(chars[i]! + chars[i + 1]!)
       }
-    } else {
-      tokens.push(segment.toLowerCase())
     }
   }
   return tokens
 }
+
+/**
+ * Prefix-match the term being typed, and only that one.  MiniSearch defaults
+ * to prefix-matching every term, which under bigram tokenisation lets the
+ * trailing Han unigram of a finished query (the `步` of `同步`) match every
+ * `步*` bigram in the index and drag unrelated pages up the ranking.
+ */
+const prefixLastTermOnly = (_term: string, index: number, terms: string[]) =>
+  index === terms.length - 1
 
 /**
  * Redirect visitors to the locale their browser prefers.
@@ -368,7 +388,7 @@ export default defineConfig({
         // the tokenizer has to handle English and Chinese at once.
         miniSearch: {
           options: { tokenize },
-          searchOptions: { tokenize },
+          searchOptions: { tokenize, prefix: prefixLastTermOnly },
         },
         translations: {
           button: { buttonText: 'Search docs', buttonAriaLabel: 'Search docs' },
