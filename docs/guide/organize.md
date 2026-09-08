@@ -1,36 +1,36 @@
-# 分类、检索与日历
+# Collections, search and calendar
 
-日记一多，检索能力就是一切。Moodiary 提供了四种找回内容的方式。
+Once you have many entries, finding them is everything. Moodiary gives you four ways to get content back.
 
-## 分类
+## Collections
 
-在首页侧边栏可以创建和管理分类（例如「工作」「生活」「读书笔记」），并在写日记时为它选择归属。列表页可以按分类过滤。
+From the home screen's sidebar you can create and manage collections (for example "Work", "Life", or "Reading notes"), and assign an entry to one when you write it. The list view can be filtered by collection.
 
-## 全文检索
+## Full-text search
 
-首页顶部的搜索框使用 **SQLite FTS5** 全文索引：
+The search box at the top of the home screen uses a **SQLite FTS5** full-text index:
 
-- 毫秒级返回结果；
-- 支持中英文与混合输入；
-- 结果按相关度排序。
+- Results return in milliseconds;
+- It handles Chinese, English, and mixed input;
+- Results are ranked by relevance.
 
-## 语义搜索
+## Semantic search
 
-全文检索依赖精确的关键词。如果你只记得「那篇写得很丧的、关于下雨的日记」，可以启用 **语义搜索**：
+Full-text search depends on exact keywords. If all you remember is "that downbeat entry about the rain", turn on **semantic search**:
 
-- 首次使用需要在设置中下载本地嵌入模型（约几十 MB，下载后完全离线运行）；
-- 之后可以直接用一句自然语言描述去搜索，结果按语义相关度排序。
+- The first time, you download a local embedding model in Settings (tens of MB; once downloaded it runs fully offline);
+- After that you can search with a natural-language description, and results are ranked by semantic relevance.
 
-模型与索引同样保存在本地，不会上传任何内容。
+The model and its index are also stored locally — nothing is uploaded.
 
-## 日历视图
+## Calendar view
 
-日历视图按月展示每天写下的日记，适合回顾「这个月写了多少」。点击某一天可以跳转到当天的日记。
+The calendar view shows each day's entries month by month, great for looking back at "how much I wrote this month". Tap a day to jump to that day's entries.
 
-## 媒体库
+## Media library
 
-所有插入过日记的图片、音频与视频都会出现在 **媒体库** 中，可以按类型浏览，也可以快速跳转到引用它的日记。
+Every image, audio clip, and video you've ever inserted shows up in the **Media library**, where you can browse by type or jump straight to the entry that uses it.
 
-## 回收站
+## Trash
 
-删除的日记先进入回收站，可以随时恢复。回收站同样支持按分类筛选，避免「彻底找不到」。
+Deleted entries go to the trash first and can be restored at any time. The trash can also be filtered by collection, so nothing is truly "lost forever".

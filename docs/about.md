@@ -1,29 +1,29 @@
-# 关于
+# About
 
 ## Moodiary
 
-Moodiary 是一款跨平台、完全开源的日记应用，基于 Flutter 与 Rust 构建，采用 **AGPL-3.0** 许可证发布。它没有广告，也不收集你的数据。
+Moodiary is a cross-platform, fully open-source journaling app built with Flutter and Rust, released under the **AGPL-3.0** license. It contains no ads and collects none of your data.
 
-- 源码：<https://github.com/ZhuJHua/moodiary>
-- 发布页：<https://github.com/ZhuJHua/moodiary/releases>
-- 更新日志：<https://github.com/ZhuJHua/moodiary/blob/master/CHANGELOG.md>
+- Source code: <https://github.com/ZhuJHua/moodiary>
+- Releases: <https://github.com/ZhuJHua/moodiary/releases>
+- Changelog: <https://github.com/ZhuJHua/moodiary/blob/master/CHANGELOG.md>
 
-## 社区
+## Community
 
-- 官方论坛：<https://answer.moodiary.net>
-- Telegram：<https://t.me/openmoodiary>
-- QQ 交流群：760014526
+- Official forum: <https://answer.moodiary.net>
+- Telegram: <https://t.me/openmoodiary>
+- QQ group: 760014526
 
-## 赞助
+## Sponsoring
 
-如果 Moodiary 对你有帮助，可以[请作者吃个三明治](https://github.com/ZhuJHua/moodiary#-sponsor)。所有赞助者都会列在仓库首页。
+If Moodiary has been useful to you, you can [buy the author a sandwich](https://github.com/ZhuJHua/moodiary#-sponsor). Every sponsor is listed on the repository front page.
 
-## 文档
+## Documentation
 
-本站文档同样开源，位于 [moodiary-docs](https://github.com/ZhuJHua/moodiary-docs) 仓库，基于 [VitePress](https://vitepress.dev/) 构建。发现错误或想补充内容，欢迎直接提交 Pull Request——每页右下角都有「在 GitHub 上编辑此页」的入口。
+This site is open source too, hosted in the [moodiary-docs](https://github.com/ZhuJHua/moodiary-docs) repository and built with [VitePress](https://vitepress.dev/). Found a mistake or missing something? Pull Requests are welcome — every page has an "Edit this page on GitHub" link in the bottom-right corner.
 
-## 许可证
+## License
 
-Copyright © 2022-present ZhuJHua 与 Moodiary 贡献者。
+Copyright © 2022-present ZhuJHua and Moodiary contributors.
 
-本项目基于 [GNU Affero General Public License v3.0](https://github.com/ZhuJHua/moodiary/blob/master/LICENSE) 发布。这意味着你可以自由地使用、修改和分发它，但基于它衍生的网络服务同样需要开源。
+This project is released under the [GNU Affero General Public License v3.0](https://github.com/ZhuJHua/moodiary/blob/master/LICENSE). That means you are free to use, modify and redistribute it, but network services built on top of it must be open-sourced as well.

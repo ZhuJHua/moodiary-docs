@@ -1,24 +1,24 @@
-# 服务配置总览
+# Service configuration overview
 
-Moodiary 本身完全离线可用。以下可选服务用于增强体验，配置入口统一在 **设置 → 服务**。
+Moodiary works fully offline on its own. The optional services below enhance the experience, and they're all configured from **Settings → Services**.
 
-| 服务 | 用途 | 是否必需 |
+| Service | Purpose | Required |
 | --- | --- | --- |
-| [和风天气](./weather) | 自动记录日记当时的天气 | 可选 |
-| [天地图](./map) | 地点管理与足迹地图 | 可选 |
-| [WebDAV](./webdav) | 通过网盘同步与备份 | 可选 |
-| [S3 / MinIO](./s3) | 通过对象存储同步与备份 | 可选 |
-| [局域网同步](./lan) | 同一网络下设备间直连同步 | 无需配置 |
-| [AI 大模型](./ai) | AI 助手的在线模型 | 可选，也可使用本地模型 |
+| [QWeather](./weather) | Auto-records the weather when you write an entry | Optional |
+| [Tianditu](./map) | Place management and a footprint map | Optional |
+| [WebDAV](./webdav) | Sync and back up via a cloud drive | Optional |
+| [S3 / MinIO](./s3) | Sync and back up via object storage | Optional |
+| [LAN sync](./lan) | Direct peer-to-peer sync on the same network | No setup needed |
+| [AI models](./ai) | Online models for the AI assistant | Optional, local models also work |
 
-::: tip 隐私
-这些服务的请求由应用直接发往对应服务商，Moodiary 不设中转服务器。密钥保存在系统安全存储中，不会随[备份](/guide/export-import#备份)或同步数据迁移。
+::: tip Privacy
+Requests for these services are sent directly from the app to the provider — Moodiary runs no relay server. Keys are stored in your system's secure storage and are not carried over by [backups](../guide/export-import#backup) or sync data.
 :::
 
-## 通用做法
+## General steps
 
-1. 前往服务商官网注册并创建一个应用（API Key）；
-2. 在 Moodiary 的 **设置 → 服务** 中找到对应条目并填入 Key；
-3. 回到对应功能页验证是否生效。
+1. Sign up on the provider's site and create an application (API key).
+2. In Moodiary, go to **Settings → Services**, find the matching entry, and paste in the key.
+3. Return to the relevant feature page and verify it works.
 
-各家服务商的免费额度对个人记录通常已经足够。
+The free tier offered by most providers is usually enough for personal journaling.

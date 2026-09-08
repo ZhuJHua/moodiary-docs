@@ -1,36 +1,36 @@
-# 安装与更新
+# Install and update
 
-## 支持的平台
+## Supported platforms
 
-| 平台 | 状态 | 获取方式 |
+| Platform | Status | How to get it |
 | --- | --- | --- |
-| Android | ✅ 已发布 | [GitHub Releases](https://github.com/ZhuJHua/moodiary/releases) 下载 APK |
-| iOS | 🚧 暂无公开发布渠道 | 可参照[开发者文档](/dev/setup)自行编译 |
-| Windows / macOS / Linux | 🚧 重构中 | 敬请期待 |
+| Android | ✅ Released | Download the APK from [GitHub Releases](https://github.com/ZhuJHua/moodiary/releases) |
+| iOS | 🚧 No public release yet | Build it yourself by following the [developer docs](../dev/setup) |
+| Windows / macOS / Linux | 🚧 In progress | Coming soon |
 
-::: tip 系统要求
-Android 需要 **9.0（API 28）** 及以上；iOS 需要 **16.4** 及以上。
+::: tip System requirements
+Android needs **9.0 (API 28)** or later; iOS needs **16.4** or later.
 :::
 
-## 安装 Android 版
+## Install the Android app
 
-1. 打开 [Releases](https://github.com/ZhuJHua/moodiary/releases) 页面；
-2. 在最新版本下找到 `apk` 附件并下载；
-3. 安装时若系统提示「未知来源应用」，允许安装即可。
+1. Open the [Releases](https://github.com/ZhuJHua/moodiary/releases) page;
+2. Find the `apk` attachment under the latest release and download it;
+3. If your system warns about installing an app from an "unknown source", allow the installation to continue.
 
-安装包仅面向 `arm64-v8a` 设备，即近几年的绝大多数手机与平板。
+The package targets `arm64-v8a` devices — that is, the vast majority of phones and tablets from recent years.
 
-## 更新
+## Update
 
-Moodiary 不会自动更新。新版本发布时，重新下载安装包覆盖安装即可，数据不会丢失。
+Moodiary does not update itself. When a new version is released, just download the package again and install it over the old one; your data won't be lost.
 
-::: warning 覆盖安装前
-虽然覆盖安装是安全的，但定期[备份](/guide/sync#备份)永远是好习惯。
+::: warning Before installing over the old version
+Overwriting is safe, but regular [backups](./sync#备份) are always a good habit.
 :::
 
-## 数据在哪里
+## Where your data lives
 
-Moodiary 的所有数据都保存在应用的私有目录中，使用本地 SQLite 数据库存储。卸载应用会**永久删除**这些数据，因此：
+All of Moodiary's data is stored in the app's private directory, in a local SQLite database. Uninstalling the app **permanently deletes** this data, so:
 
-- 换机或重装前，请先[导出](/guide/export-import)或[同步](/guide/sync)你的数据；
-- 应用无法读取其它应用目录，系统「清除存储数据」同样会清空日记。
+- Before you switch phones or reinstall, first [export](./export-import) or [sync](./sync) your data;
+- The app cannot read other apps' directories, and a system "clear storage" action will also wipe your journal.

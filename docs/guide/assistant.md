@@ -1,44 +1,44 @@
-# AI 助手
+# AI assistant
 
-Moodiary 内置一个理解你日记的 AI 助手，可以聊天、帮你整理心情、直接检索甚至替你写日记。
+Moodiary comes with a built-in AI assistant that understands your journal. You can chat with it, get help sorting out your moods, search directly, or even have it write entries for you.
 
-## 两种运行方式
+## Two ways to run it
 
-### 1. 连接在线服务
+### 1. Connect an online service
 
-支持任意兼容以下协议的服务，包括官方 API 与各类自建网关：
+Any service that speaks one of the following protocols is supported, including the official API and various self-hosted gateways:
 
 - **OpenAI Chat Completions**
 - **OpenAI Responses**
 - **Anthropic Messages**
 
-在 **设置 → AI 助手** 中新建服务商，填写[基础地址、密钥与模型](/services/ai)即可。内置了常见服务商的预设，选好填入密钥就能用。
+Create a new provider under **Settings → AI Assistant** and fill in the [base URL, API key, and model](../services/ai). Common providers ship with built-in presets, so you can pick one and just paste in your key.
 
-### 2. 完全离线的本地模型
+### 2. Fully offline local models
 
-不想把内容交给第三方？可以下载 **本地模型**：
+Prefer not to hand your content to a third party? You can download **local models**:
 
-- 心情建议模型：在本地分析日记并给出情绪反馈；
-- 语义搜索模型：见[语义搜索](/guide/organize#语义搜索)。
+- A mood suggestion model that analyzes your journal on-device and gives emotional feedback;
+- A semantic search model — see [Semantic search](./organize#semantic-search).
 
-下载完成后不再需要网络，也不会发送任何数据。
+Once downloaded, no network is required and nothing is ever sent anywhere.
 
-## 它能做什么
+## What it can do
 
-助手可以调用一组受控工具来操作你的日记：
+The assistant can call a set of controlled tools to work with your journal:
 
-- 查询与语义搜索日记；
-- 创建、更新、删除日记（会明确征求你的确认）；
-- 列出分类；
-- 记住你告诉它的偏好；
-- 在受控沙箱中运行 JavaScript 处理数据。
+- Query and semantically search your journal;
+- Create, update, and delete entries (always with your explicit confirmation);
+- List your collections;
+- Remember preferences you tell it;
+- Run JavaScript in a controlled sandbox to process data.
 
 ::: warning
-涉及写入与删除的操作都会先向你确认，请留意助手的每一步动作。
+Any write or delete action asks for your confirmation first. Keep an eye on each step the assistant takes.
 :::
 
-## 隐私
+## Privacy
 
-- 使用在线服务时，只有你主动发送给助手的上下文会离开设备；
-- 使用本地模型时，整个过程完全离线；
-- 首次使用会展示免责声明，确认后才会启用。
+- With an online service, only the context you actively send to the assistant leaves the device;
+- With a local model, the whole process runs fully offline;
+- A disclaimer is shown on first use, and the assistant stays disabled until you accept it.

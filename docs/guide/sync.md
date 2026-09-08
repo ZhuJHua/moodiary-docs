@@ -1,57 +1,57 @@
-# 备份与同步
+# Backup and sync
 
-Moodiary 支持三种同步途径与一份本地备份，全部可选端到端加密。
+Moodiary supports three sync methods plus a local backup, all with optional end-to-end encryption.
 
-## 同步方式对比
+## Sync methods compared
 
-| 方式 | 适用场景 | 需要配置 |
+| Method | Best for | Setup needed |
 | --- | --- | --- |
-| **局域网同步** | 同一 Wi-Fi 下的两台设备 | 无需账号 |
-| **WebDAV** | 坚果云、Nextcloud 等网盘 | 服务器地址、账号 |
-| **S3 / MinIO** | 自建对象存储，容量最灵活 | Endpoint、密钥 |
+| **LAN sync** | Two devices on the same Wi-Fi | No account |
+| **WebDAV** | Cloud drives like Jianguoyun, Nextcloud | Server address, account |
+| **S3 / MinIO** | Self-hosted object storage, most flexible capacity | Endpoint, keys |
 
-所有方式都是**增量同步**，只传输有变化的数据。
+All methods are **incremental** — only changed data is transferred.
 
-## 端到端加密
+## End-to-end encryption
 
-开启加密后，你只需设置一个 **同步密码**：
+Once encryption is on, you only set a **sync password**:
 
-- 应用用它派生密钥（Argon2id），再对数据使用 AES-GCM 加密；
-- 真正加密数据的密钥不会以明文形式离开设备；
-- 服务商（网盘、对象存储）只能看到密文。
+- The app derives a key from it (Argon2id) and encrypts your data with AES-GCM;
+- The key that actually encrypts your data never leaves the device in plaintext;
+- Your provider (cloud drive or object storage) only ever sees ciphertext.
 
-::: warning 同步密码无法找回
-忘记同步密码将无法解密云端数据。请把它记在安全的地方。
+::: warning Your sync password can't be recovered
+If you forget your sync password, cloud data cannot be decrypted. Keep it somewhere safe.
 :::
 
-## 局域网同步
+## LAN sync
 
-1. 两台设备连接同一 Wi-Fi，并都打开 Moodiary；
-2. 在一台设备上进入 **同步 → 局域网**，选择发送或接收；
-3. 应用通过 mDNS 自动发现对方，确认后开始传输。
+1. Connect both devices to the same Wi-Fi and open Moodiary on each;
+2. On one device go to **Sync → LAN** and choose send or receive;
+3. The app discovers the other device automatically via mDNS, and transfer starts once you confirm.
 
-传输使用条目级 AES-256 加密的压缩包，无需任何账号配置。
+Transfer uses an entry-level AES-256 encrypted archive — no account setup required.
 
 ::: tip
-如果搜索不到对方设备，检查路由器是否开启了「AP 隔离」（客户端隔离）。
+If the other device can't be found, check whether your router has "AP isolation" (client isolation) enabled.
 :::
 
 ## WebDAV
 
-在 **同步 → WebDAV** 中填写：
+Under **Sync → WebDAV**, fill in:
 
-| 字段 | 说明 |
+| Field | Notes |
 | --- | --- |
-| 服务器地址 | 例如 `https://dav.jianguoyun.com/dav/` |
-| 用户名 | 网盘账号 |
-| 密码 | 应用密码（部分服务商需要单独生成的授权码） |
+| Server address | e.g. `https://dav.jianguoyun.com/dav/` |
+| Username | Your cloud account |
+| Password | The app password (some providers require a separately generated authorization token) |
 
-详细说明见 [WebDAV 配置](/services/webdav)。
+For details see [WebDAV configuration](../services/webdav).
 
 ## S3 / MinIO
 
-在 **同步 → S3** 中填写 Endpoint、Bucket、Region、Access Key 与 Secret Key，并可选择是否使用 HTTPS。适合自建 MinIO 或使用任意兼容 S3 协议的对象存储，见 [S3 / MinIO 配置](/services/s3)。
+Under **Sync → S3**, fill in the Endpoint, Bucket, Region, Access Key, and Secret Key, and choose whether to use HTTPS. This works with a self-hosted MinIO or any S3-compatible object storage — see [S3 / MinIO configuration](../services/s3).
 
-## 备份
+## Backup
 
-不打算多设备同步的话，定期在 **设置** 中生成备份包并保存到别处，是最简单的保障。备份包同样受端到端加密保护。
+If you don't plan to sync across devices, the simplest safeguard is to periodically generate a backup in **Settings** and store it elsewhere. Backup archives are also protected by end-to-end encryption.

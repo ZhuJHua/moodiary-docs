@@ -1,83 +1,83 @@
-# 常见问题
+# FAQ
 
-开发者侧的常见坑。用户侧的问题请到[官方论坛](https://answer.moodiary.net)提问。
+The usual pitfalls on the development side. For questions as a user, head to the [official forum](https://answer.moodiary.net).
 
-## 构建 / 运行
+## Building and running
 
-### `flutter test` 找不到任何测试
+### `flutter test` finds no tests
 
-仓库根目录没有测试。请使用 `dart tool/task.dart test`（会分发到各包）与 `test-mobile`。
+There are no tests in the repository root. Use `dart tool/task.dart test` (which fans out to the packages) and `test-mobile`.
 
-### 修改 Rust 依赖后 APK 体积没有变化
+### The APK size doesn't change after I modify a Rust dependency
 
-构建钩子缓存位于 `.dart_tool/hooks_runner/`，`flutter clean` **不会**清理它。执行：
+The build hook cache lives in `.dart_tool/hooks_runner/`, and `flutter clean` does **not** clear it. Run:
 
 ```bash
 dart tool/task.dart clean
 ```
 
-### 构建时报编辑器资源缺失
+### The build complains that editor assets are missing
 
-`moodiary_editor` 的 WebView 资源由构建钩子在首次 run/build 时生成，需要 **corepack** 可用（Node 自带）。确认 `corepack pnpm --version` 可以执行。
+The WebView assets for `moodiary_editor` are produced by a build hook on the first run/build, which needs **corepack** to be available (it ships with Node). Check that `corepack pnpm --version` works.
 
-### `gen-rust` 拒绝执行
+### `gen-rust` refuses to run
 
-`flutter_rust_bridge_codegen` CLI 版本与 pubspec 钉定版本不一致。安装匹配版本：
+The `flutter_rust_bridge_codegen` CLI doesn't match the version pinned in the pubspec. Install the matching one:
 
 ```bash
 cargo install flutter_rust_bridge_codegen --version 2.13.0 --locked
 ```
 
-### Gradle / Android 构建失败
+### The Gradle / Android build fails
 
-- 确认 JDK 为 **21**（守护进程 JVM 已被 `gradle-daemon-jvm.properties` 固定）；
-- Android SDK 需 API 36 与 NDK 28.2.13676358；
-- Gradle 发行版通过腾讯镜像下载，网络受限时可能需要自行配置代理。
+- Check that your JDK is **21** (the daemon JVM is pinned by `gradle-daemon-jvm.properties`).
+- The Android SDK needs API 36 and NDK 28.2.13676358.
+- The Gradle distribution is downloaded from a Tencent mirror, so you may need to configure a proxy on a restricted network.
 
-### Rust 工具链不对
+### The Rust toolchain is wrong
 
-各原生包的 `rust/rust-toolchain.toml` 钉定 **1.95.0 stable**，`rustup` 会在构建时自动安装。若手动切换过全局工具链，回到仓库目录执行任意 `cargo` 命令即可被覆盖。
+Each native package's `rust/rust-toolchain.toml` pins **1.95.0 stable**, and `rustup` installs it during the build. If you switched your global toolchain by hand, running any `cargo` command back inside the repository is enough to override it.
 
-## 分层与分析
+## Layers and analysis
 
-### `check_layers` 报错
+### `check_layers` reports an error
 
-分层检查以 `tool/layer_baseline.txt` 为零基线，常见原因：
+The layer check treats `tool/layer_baseline.txt` as a zero baseline. The usual causes are:
 
-- 下层包依赖了上层包；
-- 同层包互相引用（core 与 feature_base 有内部顺序）；
-- 业务代码直接 `import 'package:flutter/material.dart'`，应改为 `import 'package:mui/mui.dart'`。
+- a lower-layer package depending on a higher-layer one;
+- packages in the same layer referencing each other (core and feature_base have an internal order);
+- product code importing `'package:flutter/material.dart'` directly, which should be `import 'package:mui/mui.dart'`.
 
-### `check_generated` 报错
+### `check_generated` reports an error
 
-六个原生包的 `Cargo.toml`、工具链与 FRB / ffigen 版本必须完全一致。通常是有包被单独升级，请对齐或回退。
+The `Cargo.toml` files, toolchains and FRB / ffigen versions of the six native packages have to match exactly. Usually one package was upgraded on its own, so align the rest or revert it.
 
-### analyze 提示某个 i18n 键是死键
+### analyze says an i18n key is dead
 
-文案键被局部别名引用会让 analyzer 误判。请完整写出 `l10n.xxx.yyy`。
+Referring to a copy key through a local alias throws the analyzer off. Spell out `l10n.xxx.yyy` in full.
 
-## 测试
+## Testing
 
-### 迁移测试被 skip
+### The migration tests are skipped
 
-旧版数据库迁移测试需要动态库路径：
+The legacy database migration tests need a path to the dynamic library:
 
 ```bash
 export ISAR_TEST_DYLIB=/path/to/libisar.dylib
 ```
 
-### 测试互相影响
+### Tests interfere with each other
 
-依赖 `getIt` 的测试需要在 `tearDown` 中 `getIt.reset`，并在 `setUp` 里注册 fake。
+Tests that rely on `getIt` need `getIt.reset` in `tearDown`, with the fakes registered in `setUp`.
 
-## 其它
+## Anything else
 
-### 想加一个新功能包
+### I want to add a new feature package
 
-1. 放进正确的层（见[仓库结构与分层](/dev/architecture)）；
-2. 在根 `pubspec.yaml` 的 `workspace` 与 Melos `categories` 中登记；
-3. 若它属于 core / feature_base，注意层内顺序是否需要更新。
+1. Put it in the right layer (see [Repository structure and layers](./architecture)).
+2. Register it in `workspace` in the root `pubspec.yaml` and in the Melos `categories`.
+3. If it belongs to core or feature_base, check whether the intra-layer order needs updating.
 
-### 想贡献桌面端
+### I want to contribute to the desktop version
 
-桌面端正在重构中，包的分层已经为它预留，但目前没有可用的桌面 target。欢迎在 Issues 中参与讨论。
+The desktop version is being rewritten. The package layering already leaves room for it, but there is no usable desktop target today. You're welcome to join the discussion in Issues.

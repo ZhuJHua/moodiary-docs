@@ -1,62 +1,62 @@
-# 编码约定
+# Coding conventions
 
-这些约定让 30 多个包在长期演进中保持一致。提 PR 前请过一遍。
+These conventions are what keep more than 30 packages consistent as they evolve. Please read through them before you open a PR.
 
-## 分层与导入
+## Layers and imports
 
-- 遵守 `foundation → core → feature_base → feature → apps` 的方向，`tool/check_layers.dart` 会拦截违规；
-- **业务代码只能 `import 'package:mui/mui.dart'`**，不要直接 import `material`；
-- `mui` 是 Material 的补充而非替代：Material 够用就直接用，不够才往 `mui` 加（带 `M` 前缀）；
-- 主题的唯一构造点是 `mui` 的 `buildMuiTheme()`，取值走 `ColorScheme` / `TextTheme` 与 `MuiTokens`。
+- Respect the `foundation → core → feature_base → feature → apps` direction; `tool/check_layers.dart` will catch violations.
+- **Product code may only `import 'package:mui/mui.dart'`** — never import `material` directly.
+- `mui` complements Material rather than replacing it: use Material when it is enough, and only add to `mui` (with an `M` prefix) when it is not.
+- Themes are constructed in exactly one place, `buildMuiTheme()` in `mui`; read values from `ColorScheme` / `TextTheme` and `MuiTokens`.
 
-## Barrel 导出与可见性
+## Barrel exports and visibility
 
-- 包的 barrel 使用**裸 export**（不写 `show`）；
-- 不想共享的符号加 `_` 前缀；
-- 包内要用、对外不该暴露的加 `@internal`，并在 barrel 上 `hide`；
-- 只有测试使用的加 `@visibleForTesting`；
-- `show` 仅保留给确实裁不掉的场景（FRB 生成物、第三方重导出、picker 皮肤）。
+- Package barrels use **bare exports** (no `show`).
+- Prefix anything you do not want to share with `_`.
+- Mark symbols that are needed inside the package but should not be public with `@internal`, and `hide` them in the barrel.
+- Mark test-only symbols with `@visibleForTesting`.
+- Reserve `show` for the cases where it genuinely cannot be avoided (FRB output, third-party re-exports, picker skins).
 
-## 依赖注入：get_it + injectable
+## Dependency injection: get_it + injectable
 
-- 绑定注解写在**实现类**上（`@Singleton(as:)` 等）；
-- 全仓库只有一个 `configureDependencies`（`mobile/lib/app/di/di.dart`），各基础设施包以 micro-module 挂载；
-- 解析一律 `getIt<X>()`；**不要手写 `getIt.register*`**（唯一例外是同步会话作用域）;
-- 不使用 `@PostConstruct`，启动逻辑放在 `main` 的 bootstrap 中；
-- 修改注解后必须跑 `dart tool/task.dart build-runner`，生成文件需要提交。
+- Put binding annotations on the **implementation class** (`@Singleton(as:)` and friends).
+- There is a single `configureDependencies` in the whole repository (`mobile/lib/app/di/di.dart`); infrastructure packages hook in as micro-modules.
+- Always resolve with `getIt<X>()`; **never hand-write `getIt.register*`** (the one exception is the sync session scope).
+- Do not use `@PostConstruct` — startup logic belongs in the bootstrap in `main`.
+- After changing an annotation you must run `dart tool/task.dart build-runner`, and the generated files need to be committed.
 
-## 路由：go_router + extra
+## Routing: go_router + extra
 
-- 路由类统一放在 `moodiary_router`，每个路由持有 `location` 与 `params`；
-- 应用不面向 Web，因此**不使用路径或查询参数**，参数通过 `extra` 以 snake_case 键传递；
-- `params` 只放 JSON 标量（id、bool 等），对象会被快照化导致状态恢复时过期；
-- 每个页面提供 `factory X.fromRoute(GoRouterState)`。
+- Route classes all live in `moodiary_router`, and each route holds a `location` and `params`.
+- The app does not target the web, so **path and query parameters are not used**; parameters are passed through `extra` with snake_case keys.
+- Keep `params` to JSON scalars (ids, booleans and so on) — objects get snapshotted and go stale when state is restored.
+- Every page provides a `factory X.fromRoute(GoRouterState)`.
 
-## 国际化：slang
+## Internationalization: slang
 
-- 文案使用 `context.l10n.xxx`（随语言切换刷新）；服务与回调用顶层 `l10n.xxx`；
-- 参数使用命名参数，键名完整写出，不要起局部别名（会让 analyzer 误判为死键）;
-- 修改 `*.i18n.json` 后运行 `dart tool/task.dart i18n`，生成文件需要提交；
-- 面向模型的文本（提示词、工具描述）硬编码英文，不进入 i18n；
-- `mui` 自带一套独立的 slang 输出（`context.muiL10n`）。
+- Use `context.l10n.xxx` for copy (it refreshes when the language changes); use the top-level `l10n.xxx` in services and callbacks.
+- Pass parameters by name and spell keys out in full — local aliases make the analyzer report keys as dead.
+- After editing a `*.i18n.json`, run `dart tool/task.dart i18n` and commit the generated files.
+- Text aimed at models (prompts, tool descriptions) is hardcoded in English and stays out of i18n.
+- `mui` ships its own separate slang output (`context.muiL10n`).
 
-## KV 存储
+## KV storage
 
-- `IKVStorage.set / remove / clear` 是同步的，返回 `void`；
-- Key 只支持 `int / bool / double / String / List<String>`；
-- 密钥（PIN、API Key）存 `MoodiarySecureKVs`；
-- 应用锁密码一律走 `AppLockPin`，不要直接读写 `password`。
+- `IKVStorage.set / remove / clear` are synchronous and return `void`.
+- Keys only support `int / bool / double / String / List<String>`.
+- Secrets (PINs, API keys) go in `MoodiarySecureKVs`.
+- The app lock passcode always goes through `AppLockPin` — never read or write `password` directly.
 
-## Rust 与原生库
+## Rust and native libraries
 
-- 每个原生包拥有自己的 crate、原生库、build hook、`rust-toolchain.toml` 与 `Cargo.lock`；
-- **不使用** `[workspace.dependencies]`，相同 crate 在各包内分别钉版本，`tool/check_generated.dart` 会校验一致性；
-- 修改 `rust/src/api` 后必须运行 `dart tool/task.dart gen-rust`；
-- 不透明句柄（如 `CancelToken`）不能跨 `.so` 边界，每个库各自构造，且必须在 `await ensureInitialized()` 之后；
-- 每个包暴露 `Xxx.ensureInitialized()`，可重复调用。
+- Every native package owns its crate, native library, build hook, `rust-toolchain.toml` and `Cargo.lock`.
+- `[workspace.dependencies]` is **not used**: shared crates are pinned separately in each package, and `tool/check_generated.dart` verifies that the versions match.
+- After changing `rust/src/api` you must run `dart tool/task.dart gen-rust`.
+- Opaque handles (such as `CancelToken`) cannot cross `.so` boundaries: each library constructs its own, and only after `await ensureInitialized()`.
+- Every package exposes `Xxx.ensureInitialized()`, which is safe to call repeatedly.
 
-## 提交与版本
+## Commits and versions
 
-- 提交信息遵循 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/)，CI 依据它生成 CHANGELOG；
-- 不希望进入 CHANGELOG 的 PR：在压缩后的提交正文写 `Changelog: skip`，或使用会被跳过的 scope（`chore(deps|readme|pr|pull)`）；
-- **所有版本号精确钉定**，唯一例外是根 `pubspec.yaml` 中的 melos。
+- Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), which is how CI generates the CHANGELOG.
+- To keep a PR out of the CHANGELOG, put `Changelog: skip` in the body of the squashed commit, or use one of the skipped scopes (`chore(deps|readme|pr|pull)`).
+- **Every version is pinned exactly.** The one exception is melos in the root `pubspec.yaml`.

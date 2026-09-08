@@ -1,28 +1,28 @@
-# 天地图
+# Tianditu
 
-地图与足迹能力由[天地图](https://www.tianditu.gov.cn/)提供，用于地点管理、足迹展示与日记中的位置信息。
+Maps and footprints are powered by [Tianditu](https://www.tianditu.gov.cn/) and are used for place management, footprint display, and location info in your entries.
 
-## 获取密钥
+## Get an API key
 
-1. 注册[天地图开发者平台](https://console.tianditu.gov.cn/)；
-2. 在 **控制台 → 应用管理** 中创建一个新应用；
-3. 应用类型选择 **浏览器端**，创建后即可得到一个 API Key（`tk`）。
+1. Register on the [Tianditu Developer Platform](https://console.tianditu.gov.cn/).
+2. Under **Console → App Management**, create a new application.
+3. Set the application type to **Browser**; once created, you'll get an API Key (`tk`).
 
 ::: tip
-天地图个人开发者免费，实名认证后配额更高。请不要勾选需要付费的增值服务。
+Tianditu is free for individual developers, with a higher quota after identity verification. Don't opt into any paid value-added services.
 :::
 
-## 在 Moodiary 中配置
+## Configure in Moodiary
 
-进入 **设置 → 服务 → 地图**，填入 **API Key** 即可。
+Go to **Settings → Services → Map** and paste in the **API Key**.
 
-配置完成后可以使用：
+Once configured, you can use:
 
-- **地点管理**：保存家、公司等常去的地方；
-- **足迹地图**：在地图上回看记录过的地点；
-- **日记定位**：写日记时附加位置信息。
+- **Place management**: save frequent places like home and work.
+- **Footprint map**: revisit recorded places on a map.
+- **Entry location**: attach location info when writing.
 
-## 常见问题
+## FAQ
 
-- **地图空白或瓦片报错**：检查 Key 是否填写正确、应用类型是否为「浏览器端」，以及当天配额是否用尽。
-- **定位不准**：足迹基于你保存的地点与日记记录，而不是后台持续追踪。
+- **Blank map or tile errors**: check that the key is correct, the app type is **Browser**, and that today's quota isn't used up.
+- **Inaccurate location**: footprints are based on your saved places and entry records, not continuous background tracking.

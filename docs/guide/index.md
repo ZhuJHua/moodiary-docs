@@ -1,35 +1,35 @@
-# 认识 Moodiary
+# Meet Moodiary
 
-**Moodiary** 是一款跨平台且完全开源的日记应用，基于 **Flutter** 与 **Rust** 构建。
+**Moodiary** is a cross-platform, fully open-source journal built with **Flutter** and **Rust**.
 
-它离线即可使用：所有内容保存在你自己的设备上，没有广告，也不做任何数据收集。当前提供 **Android** 与 **iOS** 版本，桌面端正在重构中。
+It works entirely offline: everything you write stays on your own device, with no ads and no data collection. **Android** and **iOS** apps are available today; the desktop app is being rebuilt.
 
-## 它能做什么
+## What it does
 
-- **写日记**：富文本编辑器支持图文混排，可插入图片、音频与视频，也支持 Markdown 语法。
-- **找回日记**：全文检索、分类过滤、日历时间线，删除的内容先进入回收站。
-- **记录生活**：保存常去的地点、记录天气，在地图上回看自己的足迹。
-- **带走数据**：导出为 Markdown、Word、PDF 或长图，也支持整包备份与恢复。
-- **多设备同步**：通过 WebDAV、S3 / MinIO 或局域网在设备间同步，可选端到端加密。
-- **保护隐私**：应用锁（密码 + 生物识别）、加密同步、本地存储。
-- **AI 助手**：连接 OpenAI / Anthropic 兼容服务，或运行完全离线的本地模型。
+- **Write entries**: the rich-text editor mixes text with images, audio and video, and supports Markdown.
+- **Find entries again**: full-text search, filtering by collection, a calendar timeline, and a trash for anything you delete.
+- **Record your life**: save the places you visit often, log the weather, and replay your footsteps on a map.
+- **Take your data with you**: export to Markdown, Word, PDF or long images, or back up and restore the whole journal.
+- **Sync across devices**: sync over WebDAV, S3 / MinIO or your local network (LAN), with optional end-to-end encryption.
+- **Stay private**: an app lock (password + biometrics), encrypted sync, and local-only storage.
+- **AI assistant**: connect an OpenAI- or Anthropic-compatible service, or run a fully offline local model.
 
-## 设计理念
+## Design principles
 
-- **数据属于你**：应用离线即可使用，除了你主动配置的第三方服务（天气、地图、同步、AI）之外，不会向任何服务器发送数据。
-- **默认黑白**：Moodiary 默认使用一套灰度（黑白）配色，安静、克制，把注意力还给文字；你也可以切换为跟随系统动态取色或自定义强调色。
-- **原生性能**：图像处理、加解密、同步、分词等重负载由 Rust 原生库承担，界面依然流畅。
+- **Your data is yours**: the app runs offline. Apart from the third-party services you choose to configure (weather, maps, sync, AI), it never sends anything to a server.
+- **Black and white by default**: Moodiary ships with a quiet grayscale palette that keeps the focus on your words. You can switch to dynamic color that follows your system, or pick a custom accent color.
+- **Native performance**: heavy work — image processing, encryption, sync, and word segmentation — runs in native Rust libraries, so the interface stays smooth.
 
-## 当前版本
+## Current version
 
-当前版本为 **2.8.1**。更新日志见 [CHANGELOG](https://github.com/ZhuJHua/moodiary/blob/master/CHANGELOG.md)。
+The current version is **2.8.1**. See the [CHANGELOG](https://github.com/ZhuJHua/moodiary/blob/master/CHANGELOG.md) for details.
 
-## 参与进来
+## Get involved
 
-Moodiary 的发展离不开社区。无论是提交 Bug、提出功能建议、翻译文案、撰写文档还是贡献代码，都欢迎你加入：
+Moodiary is shaped by its community. Whether you want to report a bug, suggest a feature, translate the app, write docs, or contribute code — you're welcome:
 
-- 在 [GitHub Issues](https://github.com/ZhuJHua/moodiary/issues) 反馈问题或提出建议
-- 阅读 [开发者文档](/dev/) 了解如何搭建环境并提交代码
-- 在 [官方论坛](https://answer.moodiary.net/)、[Telegram 群组](https://t.me/openmoodiary) 或 QQ 群（760014526）参与讨论
+- Report issues or suggest features on [GitHub Issues](https://github.com/ZhuJHua/moodiary/issues)
+- Read the [developer docs](../dev/) to set up the environment and submit code
+- Join the conversation on the [official forum](https://answer.moodiary.net/), the [Telegram group](https://t.me/openmoodiary), or QQ group 760014526
 
-如果 Moodiary 对你有帮助，也可以[请作者吃个三明治](https://github.com/ZhuJHua/moodiary#-sponsor)。
+If Moodiary has been helpful, you can also [buy the author a sandwich](https://github.com/ZhuJHua/moodiary#-sponsor).

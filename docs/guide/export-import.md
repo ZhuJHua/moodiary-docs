@@ -1,38 +1,38 @@
-# 导出、导入与分享
+# Export, import, and sharing
 
-你的数据必须能离开 Moodiary，它才真正属于你。
+Your data only truly belongs to you once it can leave Moodiary.
 
-## 导出
+## Export
 
-在日记详情页可以选择导出格式：
+From an entry's detail page you can choose an export format:
 
-| 格式 | 用途 |
+| Format | Use |
 | --- | --- |
-| **Markdown** | 纯文本通用格式，方便迁移到其它笔记软件 |
-| **Word (.docx)** | 交给需要交稿的场景 |
-| **PDF** | 打印、存档 |
-| **长图** | 分享到社交平台 |
+| **Markdown** | A plain, portable text format that moves easily into other note apps |
+| **Word (.docx)** | For when you need to hand in a finished document |
+| **PDF** | Printing and archiving |
+| **Long image** | Sharing to social platforms |
 
-多媒体内容会一并处理，长图导出会保留排版样式。
+Embedded media travels with the text, and long-image export keeps your layout intact.
 
-## 备份
+## Backup
 
-**设置 → 备份** 可以生成一个包含全部日记、媒体与设置的压缩包。备份包可以：
+**Settings → Backup** generates an archive containing all your entries, media, and settings. The backup can:
 
-- 保存在本机或任意网盘；
-- 在另一台设备上通过 **导入备份** 完整恢复。
+- Be stored on your device or any cloud drive;
+- Be fully restored on another device via **Import backup**.
 
-::: tip 建议的节奏
-换机前、大版本更新前，各做一次完整备份。
+::: tip A good rhythm
+Make a full backup before switching devices and before any major version update.
 :::
 
-## 导入
+## Import
 
-支持两种来源：
+Two sources are supported:
 
-- **Markdown 压缩包**：把其它应用的 Markdown 导出打包成 zip 后导入；
-- **本地备份**：恢复由 Moodiary 生成的备份包。
+- **Markdown archive**: package another app's Markdown export into a zip and import it;
+- **Local backup**: restore a backup created by Moodiary.
 
-## 分享
+## Sharing
 
-分享单篇日记等同于把它导出为所选格式，然后调用系统分享面板，可以直接发送给朋友或保存到相册（长图）。
+Sharing a single entry is the same as exporting it to your chosen format and then opening the system share sheet — send it straight to a friend, or save it to your photo library (as a long image).

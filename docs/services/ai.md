@@ -1,48 +1,48 @@
-# AI 大模型
+# AI models
 
-AI 助手支持接入任意 **OpenAI 兼容** 或 **Anthropic 兼容** 的服务，包括官方 API、各类聚合网关与本地部署的推理服务（如 Ollama、LM Studio）。
+The AI assistant can connect to any **OpenAI-compatible** or **Anthropic-compatible** service — official APIs, various aggregator gateways, and locally deployed inference services (such as Ollama and LM Studio).
 
-## 支持的协议
+## Supported protocols
 
-| 协议 | 适用场景 |
+| Protocol | Use case |
 | --- | --- |
-| OpenAI Chat Completions | 绝大多数兼容服务 |
-| OpenAI Responses | OpenAI 新版接口 |
-| Anthropic Messages | Claude 系列及兼容网关 |
+| OpenAI Chat Completions | Most compatible services |
+| OpenAI Responses | OpenAI's newer API |
+| Anthropic Messages | The Claude family and compatible gateways |
 
-## 获取配置信息
+## Get your config
 
-- **官方服务**：在 OpenAI / Anthropic 等平台的控制台创建 API Key；
-- **聚合网关**：按网关文档获取 Base URL 与 Key；
-- **本地服务**：开启 Ollama / LM Studio 的 API 服务，Base URL 通常为 `http://127.0.0.1:11434/v1` 这类地址。
+- **Official services**: create an API key in the console of platforms like OpenAI or Anthropic.
+- **Aggregator gateways**: get the Base URL and key from the gateway's docs.
+- **Local services**: enable the API service in Ollama / LM Studio; the Base URL is typically something like `http://127.0.0.1:11434/v1`.
 
-## 在 Moodiary 中配置
+## Configure in Moodiary
 
-进入 **设置 → AI 助手 → 服务商**，新建一个服务商：
+Go to **Settings → AI Assistant → Providers** and add a provider:
 
-| 字段 | 说明 |
+| Field | Description |
 | --- | --- |
-| 名称 | 自定义，用于区分多个服务商 |
-| 协议 | 上表中的三种之一 |
-| 基础地址 | 预设服务商已锁定，自建服务需手动填写 |
-| API Key | 服务商提供的密钥 |
-| 默认模型 | 对话使用的模型 |
-| 模型列表 | 可手动添加，或从服务商拉取 |
+| Name | Free-form, used to tell providers apart |
+| Protocol | One of the three above |
+| Base URL | Locked for presets; fill in manually for self-hosted |
+| API Key | The key provided by the service |
+| Default model | The model used in conversations |
+| Model list | Add manually or pull from the provider |
 
-还可以为该服务商开启能力开关：
+You can also toggle capability switches for the provider:
 
-- **工具调用**（Tool Call）：允许助手检索与操作日记；
-- **推理**（Reasoning）：显示思维链；
-- **附件**（视觉）：允许发送图片。
+- **Tool call**: lets the assistant search and act on your journal.
+- **Reasoning**: shows the chain of thought.
+- **Attachments** (vision): allows sending images.
 
-::: tip 预设
-应用内置了常见服务商预设（来自 [models.dev](https://models.dev/) 的公开目录，缓存 24 小时）。选择预设后只需填入 API Key。
+::: tip Presets
+The app ships with presets for common providers (from the public directory at [models.dev](https://models.dev/), cached for 24 hours). After picking a preset, you only need to enter the API key.
 :::
 
-## 不想联网？
+## Prefer not to go online?
 
-可以改用完全离线的[本地模型](/guide/assistant#2-完全离线的本地模型)，在设置中下载后即可使用，无需任何密钥。
+You can switch to a fully offline [local model](../guide/assistant#2-fully-offline-local-models) — download it in Settings and use it with no key required.
 
-## 隐私
+## Privacy
 
-发送给助手的上下文只会到达你配置的服务商。密钥保存在系统安全存储中，不会随[备份](/guide/export-import#备份)迁移。
+Context sent to the assistant only reaches the provider you configured. Keys are stored in your system's secure storage and are not carried over by [backups](../guide/export-import#backup).

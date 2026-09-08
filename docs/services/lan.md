@@ -1,24 +1,24 @@
-# 局域网同步
+# LAN sync
 
-局域网同步让两台设备在**同一网络**下直接互传数据，不经过任何云端。
+LAN sync lets two devices exchange data directly over the **same network**, with nothing going through the cloud.
 
-## 使用方法
+## How to use
 
-1. 两台设备连接同一个 Wi-Fi，并都打开 Moodiary；
-2. 在发送端进入 **同步 → 局域网**，选择 **发送**；
-3. 在接收端选择 **接收**，等待被发现；
-4. 在发送端选中对方设备，确认后开始同步。
+1. Connect both devices to the same Wi-Fi and open Moodiary on each.
+2. On the sender, go to **Sync → LAN** and choose **Send**.
+3. On the receiver, choose **Receive** and wait to be discovered.
+4. On the sender, select the other device and confirm to start syncing.
 
-设备发现基于 mDNS，因此**不需要填写任何地址或账号**。
+Discovery uses mDNS, so you **don't need to enter any address or account**.
 
-## 传输安全
+## Transfer security
 
-- 数据被打包为条目级 **AES-256** 加密的压缩包后传输；
-- 传输协议带有版本握手，避免旧版本之间的数据覆写问题；
-- 配合[端到端加密](/guide/sync#端到端加密)可进一步保护内容。
+- Data is packed into entry-level **AES-256**-encrypted archives before transfer.
+- The transfer protocol includes a version handshake to avoid data overwrites between old versions.
+- Combine with [end-to-end encryption](../guide/sync#end-to-end-encryption) for extra content protection.
 
-## 注意事项
+## Notes
 
-- **搜不到设备**：检查路由器是否开启了「AP 隔离 / 客户端隔离」；公共 Wi-Fi 常会拦截设备间通信。
-- **速度慢**：无线传输速度受 Wi-Fi 制式影响，5 GHz 网络明显更快。
-- **版本差异**：请尽量让两台设备运行相近的版本，跨大版本迁移前先做一次[备份](/guide/export-import#备份)。
+- **Can't find the device**: check whether the router has "AP isolation / client isolation" enabled; public Wi-Fi often blocks device-to-device traffic.
+- **Slow speed**: wireless speed depends on the Wi-Fi standard; 5 GHz networks are noticeably faster.
+- **Version differences**: keep both devices on similar versions; before a large cross-version migration, make a [backup](../guide/export-import#backup) first.

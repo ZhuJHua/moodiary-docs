@@ -1,35 +1,35 @@
-# 快速上手
+# Quick start
 
-这份指南带你在五分钟内完成第一次记录。
+This guide gets you to your first entry in five minutes.
 
-## 1. 创建第一篇日记
+## 1. Create your first entry
 
-打开应用，点击右下角的 **新建** 按钮：
+Open the app and tap the **New** button in the bottom-right corner:
 
-1. 输入标题与正文，正文支持图文混排，也支持 Markdown 语法；
-2. 点击工具栏中的图标可以插入图片、音频或视频；
-3. 为日记选择一个[分类](/guide/organize#分类)，方便日后查找；
-4. 点击保存即可。
+1. Type a title and body. The body supports mixed text and images, and Markdown syntax too;
+2. Tap the icons in the toolbar to insert an image, audio, or video;
+3. Pick a [collection](./organize#分类) for the entry so you can find it later;
+4. Tap save.
 
-日记会立刻写入本地数据库，无需联网。
+The entry is written to your local database immediately — no network needed.
 
-## 2. 用日历回顾
+## 2. Look back with the calendar
 
-在首页切换到 **日历** 视图，可以按月浏览每天写下的日记，点击某一天即可跳转查看。
+Switch to the **Calendar** view on the home screen to browse each day's entries by month; tap a day to jump straight to what you wrote.
 
-## 3. 找回一篇日记
+## 3. Find an entry again
 
-点击首页顶部的搜索框，输入关键词即可全文检索。忘掉关键词也没关系，可以在[语义搜索](/guide/organize#语义搜索)开启后用一句模糊的描述去找。
+Tap the search box at the top of the home screen and type a keyword to run a full-text search. If you've forgotten the keyword, turn on [semantic search](./organize#语义搜索) and just describe the entry in a sentence.
 
-## 4. 换个顺手的样式
+## 4. Pick a style you like
 
-进入 **设置**，你可以：
+Open **Settings**, where you can:
 
-- 在 **外观** 中切换浅色 / 深色模式，以及强调色（默认为黑白灰度）；
-- 在 **字体** 中导入自己喜欢的字体，包括可变字体。
+- Switch between light and dark mode, and choose an accent color (the default is a black-and-white grayscale) under **Appearance**;
+- Import your own fonts, including variable fonts, under **Fonts**.
 
-## 5. 接下来做什么
+## 5. Where to go next
 
-- 想在多台设备间保持一致？阅读[备份与同步](/guide/sync)。
-- 想把日记变成 Word、PDF 或长图？阅读[导出、导入与分享](/guide/export-import)。
-- 想让天气和地点自动出现在日记里？阅读[天气、地点与足迹](/guide/weather-and-places)，并配置相应的[服务](/services/)。
+- Want the same journal on several devices? Read [Backup and sync](./sync).
+- Want your journal as a Word file, PDF, or long image? Read [Export, import and share](./export-import).
+- Want the weather and places to show up in your entries automatically? Read [Weather, places and footprints](./weather-and-places), and configure the relevant [services](../services/).

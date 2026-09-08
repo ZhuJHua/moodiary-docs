@@ -1,34 +1,34 @@
-# 安全与隐私
+# Security and privacy
 
-Moodiary 的原则很简单：**数据留在你的设备上，密钥不离开你的设备**。
+Moodiary's principle is simple: **your data stays on your device, and your keys never leave it**.
 
-## 应用锁
+## App lock
 
-在 **设置 → 应用锁** 中可以设置密码锁：
+Under **Settings → App Lock** you can set a passcode lock:
 
-- 密码以 Argon2id 派生后存储，应用本身也无法还原明文；
-- 支持使用指纹 / 面容等 **生物识别** 快速解锁；
-- 可开启「立即锁定」，切出应用即刻上锁；
-- 可开启「隐私模糊」，在应用切换器中隐藏日记内容。
+- The passcode is stored after Argon2id key derivation — even the app can't recover the plaintext;
+- Biometric unlock (fingerprint / Face ID) is supported for quick access;
+- "Lock immediately" locks the app the moment you switch away;
+- "Privacy blur" hides journal content in the app switcher.
 
-## 数据存储
+## Data storage
 
-- 所有日记、媒体与设置都保存在应用私有目录中的 **SQLite** 数据库；
-- 除你主动配置的第三方服务外，应用不发起任何网络请求；
-- 没有广告 SDK、没有统计 SDK、没有崩溃上报。
+- All entries, media, and settings are stored in a **SQLite** database in the app's private directory;
+- Apart from third-party services you configure yourself, the app makes no network requests;
+- No ad SDK, no analytics SDK, no crash reporting.
 
-## 同步加密
+## Sync encryption
 
-使用 WebDAV、S3 或局域网同步时，可以开启[端到端加密](/guide/sync#端到端加密)：
+When using WebDAV, S3, or LAN sync, you can enable [end-to-end encryption](./sync#end-to-end-encryption):
 
-- 密钥由你的同步密码在本地派生（Argon2id）；
-- 数据使用 AES-GCM 加密后才会上传；
-- 服务商只能看到密文。
+- Keys are derived locally from your sync password (Argon2id);
+- Data is encrypted with AES-GCM before it's uploaded;
+- Your provider only sees ciphertext.
 
-## 敏感信息
+## Sensitive information
 
-第三方服务的 API Key（天气、地图、AI）保存在系统的安全存储中，不会出现在[备份](/guide/export-import#备份)与同步数据里，换机后需要重新填写。
+Third-party API keys (weather, maps, AI) are stored in the system's secure storage and never appear in [backups](./export-import#backup) or sync data — they need to be re-entered after switching devices.
 
-## 卸载即销毁
+## Uninstalling destroys everything
 
-卸载应用会删除全部本地数据。因此卸载前请务必[导出](/guide/export-import)或确认云端已有完整同步数据。
+Uninstalling the app deletes all local data. So before uninstalling, be sure to [export](./export-import) or confirm your cloud already holds a complete sync.

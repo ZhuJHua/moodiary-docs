@@ -1,59 +1,59 @@
-# 代码生成
+# Code generation
 
-大量代码由生成器产出，并且**生成文件会被提交**。改动之后记得重新生成并一起提交，否则 CI 会失败。
+A large amount of code comes out of generators, and the **generated files are committed**. Whenever you change an input, regenerate and commit the output along with it, or CI will fail.
 
-## Dart 代码生成（build_runner）
+## Dart code generation (build_runner)
 
-覆盖 `injectable`、`freezed`、`json_serializable` 等：
+Covers `injectable`, `freezed`, `json_serializable` and others:
 
 ```bash
 dart tool/task.dart build-runner
 ```
 
-- 必须在**仓库根目录**执行：只跑 `mobile/` 会漏掉各包里的注解；
-- 会顺带执行 `dart format .`；
-- 触发时机：修改了 DI 绑定注解、Freezed 模型或 JSON 序列化标注。
+- It has to run from the **repository root**: running it only in `mobile/` misses the annotations inside the packages.
+- It runs `dart format .` for you as part of the job.
+- Run it when you change a DI binding annotation, a Freezed model or a JSON serialization annotation.
 
-## Rust FFI 绑定（flutter_rust_bridge）
+## Rust FFI bindings (flutter_rust_bridge)
 
 ```bash
 dart tool/task.dart gen-rust
 ```
 
-- 触发时机：修改了任何原生包的 `rust/src/api`；
-- 会先校验 `flutter_rust_bridge_codegen` CLI 与 pubspec 中钉定的版本一致（不一致会直接拒绝，防止悄悄改写钉定版本），必要时安装：
+- Run it when you change `rust/src/api` in any native package.
+- It first checks that the `flutter_rust_bridge_codegen` CLI matches the version pinned in the pubspec (a mismatch is rejected outright, so that the pinned version can't be rewritten by accident). Install the right one if needed:
 
   ```bash
   cargo install flutter_rust_bridge_codegen --version 2.13.0 --locked
   ```
 
-- 生成完成后会执行 `cargo fmt` 与 analyze。
+- Once generation finishes it runs `cargo fmt` and analyze.
 
-## 国际化（slang）
+## Internationalization (slang)
 
 ```bash
 dart tool/task.dart i18n
 ```
 
-- 触发时机：修改了 `moodiary_i18n` 或 `mui` 中的 `*.i18n.json`；
-- 没有任何 CI 校验会捕捉「忘了重新生成」，务必手动执行并提交产物。
+- Run it when you change a `*.i18n.json` in `moodiary_i18n` or `mui`.
+- No CI check catches a forgotten regeneration, so make a point of running this yourself and committing the output.
 
-## 一次性执行两个
+## Doing both at once
 
 ```bash
 dart tool/task.dart gen
 ```
 
-## 一致性检查
+## Consistency checks
 
-`tool/check_generated.dart` 在 `analyze` 与 CI 中运行，负责保证跨包一致：
+`tool/check_generated.dart` runs as part of `analyze` and in CI, and is responsible for keeping things aligned across packages:
 
-- 六个原生包的 `Cargo.toml`、工具链、FRB / ffigen 版本必须完全一致；
-- 若报错，通常意味着某个包被单独升级了，请同步修改或回退。
+- the `Cargo.toml` files, toolchains and FRB / ffigen versions of the six native packages have to match exactly;
+- an error here usually means one package was upgraded on its own, so either bring the others along or revert it.
 
-## 构建钩子补充说明
+## More about build hooks
 
-- 原生库由 **Native Assets build hooks** 编译，缓存位于仓库根的 `.dart_tool/hooks_runner/`；
-- `flutter clean` **不会**清理该缓存；若修改 Rust 依赖后 APK 体积没有变化，先怀疑它；
-- `dart tool/task.dart clean` 会删除编辑器产物与该缓存；
-- 构建钩子在「目标平台 == 宿主平台」时提前返回，因此 `flutter test` 不会构建或加载任何 Rust 库、编辑器资源与许可证清单（`moodiary_sqlite_vec` 的 C 钩子除外）。
+- The native libraries are compiled by **Native Assets build hooks**, and the cache lives in `.dart_tool/hooks_runner/` at the repository root.
+- `flutter clean` does **not** clear that cache. If the APK size doesn't change after you modify a Rust dependency, suspect the cache first.
+- `dart tool/task.dart clean` removes both the editor output and that cache.
+- Build hooks return early when the target platform equals the host platform, which is why `flutter test` never builds or loads any Rust library, editor asset or license manifest (the C hook in `moodiary_sqlite_vec` being the exception).

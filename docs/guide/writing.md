@@ -1,37 +1,37 @@
-# 编辑日记
+# Editing entries
 
-Moodiary 的编辑器基于 **TipTap**，在原生 WebView 中运行，兼顾富文本能力与流畅度。
+Moodiary's editor is built on **TipTap** and runs in a native WebView, balancing rich-text power with smooth performance.
 
-## 输入方式
+## How to input
 
-- **所见即所得**：像在普通文档里一样排版，工具栏可以设置标题、加粗、列表、引用等。
-- **Markdown 语法**：习惯 Markdown 的话，直接输入 `# 标题`、`- 列表`、`**加粗**`，编辑器会即时转换。
+- **WYSIWYG**: format your text as in any document — the toolbar sets headings, bold, lists, quotes, and more.
+- **Markdown syntax**: if you prefer Markdown, just type `# Heading`, `- list`, or `**bold**`, and the editor converts it on the fly.
 
-## 插入多媒体
+## Insert media
 
-日记不只有文字。通过编辑器工具栏可以插入：
+Entries aren't just text. From the editor toolbar you can insert:
 
-- **图片**：从相册选取或直接拍摄；
-- **音频**与**视频**：适合记录一段声音或一段影像。
+- **Images**: pick from your album or take a photo on the spot;
+- **Audio** and **video**: handy for capturing a sound or a clip.
 
-媒体文件保存在应用的数据目录中，并在[媒体库](/guide/organize#媒体库)中统一管理。
+Media files are stored in the app's data directory and managed together in the [media library](./organize#媒体库).
 
-## 标题、分类与天气
+## Title, collection and weather
 
-在日记的编辑页可以设置：
+On an entry's edit screen you can set:
 
-- **标题**：列表中的第一眼信息；
-- **分类**：同一主题的日记归在一起，见[分类](/guide/organize#分类)；
-- **天气与地点**：可手动选择，或在配置[和风天气](/services/weather)后自动获取。
+- **Title**: the first thing you see in the list;
+- **Collection**: groups entries on the same theme — see [collections](./organize#分类);
+- **Weather and place**: choose them manually, or have them filled in automatically after you configure [QWeather](../services/weather).
 
-## 删除与回收站
+## Delete and trash
 
-删除一篇日记并不会立刻消失，它会先进入 **回收站**，随时可以恢复或彻底清除。回收站位于首页侧边栏。
+Deleting an entry doesn't make it vanish right away. It moves to the **Trash** first, where you can restore it or purge it for good. The trash lives in the home screen's sidebar.
 
 ::: warning
-彻底清除后的日记无法恢复，请谨慎操作。
+Once an entry is purged from the trash it cannot be recovered — handle with care.
 :::
 
-## 首行缩进等细节
+## Details like first-line indent
 
-在 **设置** 中可以调整首行缩进等排版习惯，让编辑区更接近你在纸上的书写方式。
+In **Settings** you can adjust habits such as the first-line indent, so the editor feels closer to writing on paper.

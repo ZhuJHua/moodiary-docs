@@ -1,36 +1,36 @@
-# 天气、地点与足迹
+# Weather, places and footprints
 
-Moodiary 可以把「在哪里、天气如何」写进日记，并在地图上回看走过的路。
+Moodiary can write "where you were and what the weather was like" into your entries, and replay the path you've walked on a map.
 
-## 天气
+## Weather
 
-### 记录天气
+### Log the weather
 
-编辑日记时可以手动选择当时的天气；也可以打开 **设置 → 服务 → 天气** 中的自动获取开关，让应用在保存日记时自动记录当前天气。
+When editing an entry you can pick the weather by hand; or turn on the auto-fetch switch under **Settings → Services → Weather** so the app records the current weather automatically when you save.
 
-### 配置天气服务
+### Configure the weather service
 
-自动获取天气需要配置[和风天气](/services/weather)的 API Key，见[天气服务配置](/services/weather)。
+Auto-fetching the weather needs a [QWeather](../services/weather) API key — see [Weather service setup](../services/weather).
 
 ::: tip
-和风天气对个人开发者提供免费额度，日常记录完全够用。
+QWeather offers a free tier for individual developers, which is more than enough for everyday journaling.
 :::
 
-## 地点与足迹
+## Places and footprints
 
-### 常去的地方
+### Frequently visited places
 
-你可以把家、公司、健身房这类常用地点保存下来，写日记时一键选择，不用每次手动定位。地点在 **地点管理** 页面维护。
+You can save places you go often — home, the office, the gym — and pick them with one tap when writing, instead of locating yourself each time. Manage your places on the **Place management** screen.
 
-### 足迹地图
+### Footprint map
 
-地图页会在地图上标出你记录过的地点，点击即可查看那天写下的日记。
+The map screen drops a pin at every place you've recorded; tap one to read what you wrote that day.
 
-### 配置地图服务
+### Configure the map service
 
-地图能力由[天地图](/services/map)提供，需要一个免费的 API Key，见[地图服务配置](/services/map)。
+Map features are provided by [Tianditu](../services/map), which needs a free API key — see [Map service setup](../services/map).
 
-## 隐私说明
+## Privacy notes
 
-- 位置信息仅在保存日记或管理地点时读取，不会在后台上传；
-- 天气与地图请求直接发往对应服务商，Moodiary 不经过任何中转服务器。
+- Location is read only when you save an entry or manage places; it is never uploaded in the background;
+- Weather and map requests go straight to the respective provider — Moodiary routes through no intermediate server.

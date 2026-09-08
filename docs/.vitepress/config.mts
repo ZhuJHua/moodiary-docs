@@ -1,8 +1,14 @@
 import { defineConfig } from 'vitepress'
 
-// https://vitepress.dev/reference/site-config
+// https://vitepress.dev/guide/i18n
+//
+// The site root serves English (the default and fallback locale); Simplified
+// Chinese lives under `/zh/`.  A tiny inline script in `head` redirects first
+// time visitors to the locale matching `navigator.language` and remembers the
+// choice; the default theme's locale switcher updates that memory whenever a
+// visitor switches manually (see theme/index.ts).
 
-/** 中文分词：CJK 按二元组切分，其余按词切分，让本地搜索能命中中文。 */
+/** Chinese tokenisation: CJK bigrams + plain word tokens, so local search hits Chinese. */
 function tokenize(text: string): string[] {
   const tokens: string[] = []
   for (const segment of text.split(/[^\p{L}\p{N}_]+/u)) {
@@ -20,11 +26,25 @@ function tokenize(text: string): string[] {
   return tokens
 }
 
+/** Redirect first-time visitors to the locale their browser prefers. */
+const localeDetector = `;(function () {
+  try {
+    var KEY = 'vitepress-locale-preferred'
+    if (localStorage.getItem(KEY)) return
+    var path = location.pathname
+    var inZh = path === '/zh' || path.indexOf('/zh/') === 0
+    var wantZh = /^zh\\b/i.test(navigator.language || 'en')
+    localStorage.setItem(KEY, wantZh ? 'zh' : 'en')
+    if (wantZh === inZh) return
+    var target = wantZh
+      ? '/zh' + (path === '/' ? '/' : path)
+      : path.replace(/^\\/zh(?=\\/|$)/, '')
+    location.replace(target || '/')
+  } catch (e) {}
+})()`
+
 export default defineConfig({
-  lang: 'zh-CN',
   title: 'Moodiary',
-  description:
-    'Moodiary 是一款跨平台、完全开源的日记应用，基于 Flutter 与 Rust 构建，离线优先、无广告、不收集数据。',
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
@@ -33,15 +53,17 @@ export default defineConfig({
     ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Moodiary' }],
+    ['meta', { property: 'og:site_name', content: 'Moodiary' }],
     [
       'meta',
       {
         property: 'og:description',
-        content: '跨平台、完全开源的日记应用，基于 Flutter 与 Rust 构建。',
+        content:
+          'A cross-platform, fully open-source journaling app built with Flutter and Rust. Offline-first, no ads, no tracking.',
       },
     ],
     ['meta', { property: 'og:url', content: 'https://docs.moodiary.net/' }],
-    ['meta', { property: 'og:site_name', content: 'Moodiary' }],
+    ['script', {}, localeDetector],
     [
       'script',
       {
@@ -62,160 +84,302 @@ export default defineConfig({
     image: { lazyLoading: true },
   },
 
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    logo: { light: '/logo-light.svg', dark: '/logo-dark.svg' },
+  locales: {
+    root: {
+      label: 'English',
+      lang: 'en-US',
+      description:
+        'Moodiary is a cross-platform, fully open-source journaling app built with Flutter and Rust. Offline-first, no ads, no data collection.',
 
-    nav: [
-      { text: '使用指南', link: '/guide/', activeMatch: '/guide/' },
-      { text: '服务配置', link: '/services/', activeMatch: '/services/' },
-      { text: '开发者', link: '/dev/', activeMatch: '/dev/' },
-      { text: '关于', link: '/about' },
-    ],
+      themeConfig: {
+        nav: [
+          { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
+          { text: 'Services', link: '/services/', activeMatch: '/services/' },
+          { text: 'Developers', link: '/dev/', activeMatch: '/dev/' },
+          { text: 'About', link: '/about' },
+        ],
 
-    sidebar: {
-      '/guide/': [
-        {
-          text: '开始',
-          items: [
-            { text: '认识 Moodiary', link: '/guide/' },
-            { text: '安装与更新', link: '/guide/install' },
-            { text: '快速上手', link: '/guide/quick-start' },
+        sidebar: {
+          '/guide/': [
+            {
+              text: 'Getting Started',
+              items: [
+                { text: 'Welcome to Moodiary', link: '/guide/' },
+                { text: 'Installation & Updates', link: '/guide/install' },
+                { text: 'Quick Start', link: '/guide/quick-start' },
+              ],
+            },
+            {
+              text: 'Writing',
+              items: [
+                { text: 'Editing Entries', link: '/guide/writing' },
+                { text: 'Organizing & Search', link: '/guide/organize' },
+                { text: 'Weather, Places & Footprints', link: '/guide/weather-and-places' },
+                { text: 'AI Assistant', link: '/guide/assistant' },
+              ],
+            },
+            {
+              text: 'Your Data',
+              items: [
+                { text: 'Export, Import & Sharing', link: '/guide/export-import' },
+                { text: 'Backup & Sync', link: '/guide/sync' },
+              ],
+            },
+            {
+              text: 'Personalization',
+              items: [
+                { text: 'Themes & Fonts', link: '/guide/customization' },
+                { text: 'Security & Privacy', link: '/guide/privacy' },
+              ],
+            },
+          ],
+          '/services/': [
+            {
+              text: 'Services',
+              items: [
+                { text: 'Overview', link: '/services/' },
+                { text: 'QWeather', link: '/services/weather' },
+                { text: 'Tianditu Maps', link: '/services/map' },
+                { text: 'WebDAV', link: '/services/webdav' },
+                { text: 'S3 / MinIO', link: '/services/s3' },
+                { text: 'LAN Sync', link: '/services/lan' },
+                { text: 'AI Models', link: '/services/ai' },
+              ],
+            },
+          ],
+          '/dev/': [
+            {
+              text: 'Getting Started',
+              items: [
+                { text: 'Contributing', link: '/dev/' },
+                { text: 'Development Setup', link: '/dev/setup' },
+              ],
+            },
+            {
+              text: 'Understanding the Code',
+              items: [
+                { text: 'Repository Structure & Layers', link: '/dev/architecture' },
+                { text: 'Coding Conventions', link: '/dev/conventions' },
+              ],
+            },
+            {
+              text: 'Day-to-Day Development',
+              items: [
+                { text: 'Common Commands', link: '/dev/workflow' },
+                { text: 'Code Generation', link: '/dev/codegen' },
+                { text: 'Testing', link: '/dev/testing' },
+              ],
+            },
+            {
+              text: 'Releasing',
+              items: [
+                { text: 'Release Process', link: '/dev/release' },
+                { text: 'FAQ', link: '/dev/faq' },
+              ],
+            },
           ],
         },
-        {
-          text: '记录',
-          items: [
-            { text: '编辑日记', link: '/guide/writing' },
-            { text: '分类、检索与日历', link: '/guide/organize' },
-            { text: '天气、地点与足迹', link: '/guide/weather-and-places' },
-            { text: 'AI 助手', link: '/guide/assistant' },
-          ],
-        },
-        {
-          text: '数据',
-          items: [
-            { text: '导出、导入与分享', link: '/guide/export-import' },
-            { text: '备份与同步', link: '/guide/sync' },
-          ],
-        },
-        {
-          text: '个性化',
-          items: [
-            { text: '主题与字体', link: '/guide/customization' },
-            { text: '安全与隐私', link: '/guide/privacy' },
-          ],
-        },
-      ],
-      '/services/': [
-        {
-          text: '服务配置',
-          items: [
-            { text: '总览', link: '/services/' },
-            { text: '和风天气', link: '/services/weather' },
-            { text: '天地图', link: '/services/map' },
-            { text: 'WebDAV', link: '/services/webdav' },
-            { text: 'S3 / MinIO', link: '/services/s3' },
-            { text: '局域网同步', link: '/services/lan' },
-            { text: 'AI 大模型', link: '/services/ai' },
-          ],
-        },
-      ],
-      '/dev/': [
-        {
-          text: '入门',
-          items: [
-            { text: '参与贡献', link: '/dev/' },
-            { text: '开发环境', link: '/dev/setup' },
-          ],
-        },
-        {
-          text: '理解代码',
-          items: [
-            { text: '仓库结构与分层', link: '/dev/architecture' },
-            { text: '编码约定', link: '/dev/conventions' },
-          ],
-        },
-        {
-          text: '日常开发',
-          items: [
-            { text: '常用命令', link: '/dev/workflow' },
-            { text: '代码生成', link: '/dev/codegen' },
-            { text: '测试', link: '/dev/testing' },
-          ],
-        },
-        {
-          text: '发布',
-          items: [
-            { text: '发布流程', link: '/dev/release' },
-            { text: '常见问题', link: '/dev/faq' },
-          ],
-        },
-      ],
-    },
 
-    outline: { level: [2, 3], label: '本页目录' },
+        outline: { level: [2, 3], label: 'On this page' },
 
-    search: {
-      provider: 'local',
-      options: {
-        miniSearch: {
-          options: { tokenize },
-          searchOptions: { tokenize },
-        },
-        translations: {
-          button: { buttonText: '搜索文档', buttonAriaLabel: '搜索文档' },
-          modal: {
-            displayDetails: '显示详细列表',
-            resetButtonTitle: '清空关键词',
-            backButtonTitle: '返回',
-            noResultsText: '没有找到相关结果',
-            footer: {
-              selectText: '选择',
-              navigateText: '切换',
-              navigateUpKeyAriaLabel: '上一个',
-              navigateDownKeyAriaLabel: '下一个',
-              closeText: '关闭',
+        search: {
+          provider: 'local',
+          options: {
+            translations: {
+              button: { buttonText: 'Search docs', buttonAriaLabel: 'Search docs' },
             },
           },
+        },
+
+        editLink: {
+          pattern:
+            'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
+          text: 'Edit this page on GitHub',
+        },
+
+        footer: {
+          message: 'Released under the AGPL-3.0 License',
+          copyright: 'Copyright © 2022-present ZhuJHua and Moodiary contributors',
+        },
+
+        lastUpdated: {
+          text: 'Last updated',
+          formatOptions: { dateStyle: 'medium', timeStyle: 'short' },
+        },
+
+        docFooter: { prev: 'Previous', next: 'Next' },
+
+        notFound: {
+          title: 'Page not found',
+          quote: "There's nothing here. The link may be broken or the page moved.",
+          linkLabel: 'Back to home',
+          linkText: 'Back to home',
         },
       },
     },
 
-    editLink: {
-      pattern:
-        'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
-      text: '在 GitHub 上编辑此页',
-    },
+    zh: {
+      label: '简体中文',
+      lang: 'zh-CN',
+      description:
+        'Moodiary 是一款跨平台、完全开源的日记应用，基于 Flutter 与 Rust 构建，离线优先、无广告、不收集数据。',
 
+      themeConfig: {
+        nav: [
+          { text: '使用指南', link: '/zh/guide/', activeMatch: '/zh/guide/' },
+          { text: '服务配置', link: '/zh/services/', activeMatch: '/zh/services/' },
+          { text: '开发者', link: '/zh/dev/', activeMatch: '/zh/dev/' },
+          { text: '关于', link: '/zh/about' },
+        ],
+
+        sidebar: {
+          '/zh/guide/': [
+            {
+              text: '开始',
+              items: [
+                { text: '认识 Moodiary', link: '/zh/guide/' },
+                { text: '安装与更新', link: '/zh/guide/install' },
+                { text: '快速上手', link: '/zh/guide/quick-start' },
+              ],
+            },
+            {
+              text: '记录',
+              items: [
+                { text: '编辑日记', link: '/zh/guide/writing' },
+                { text: '分类、检索与日历', link: '/zh/guide/organize' },
+                { text: '天气、地点与足迹', link: '/zh/guide/weather-and-places' },
+                { text: 'AI 助手', link: '/zh/guide/assistant' },
+              ],
+            },
+            {
+              text: '数据',
+              items: [
+                { text: '导出、导入与分享', link: '/zh/guide/export-import' },
+                { text: '备份与同步', link: '/zh/guide/sync' },
+              ],
+            },
+            {
+              text: '个性化',
+              items: [
+                { text: '主题与字体', link: '/zh/guide/customization' },
+                { text: '安全与隐私', link: '/zh/guide/privacy' },
+              ],
+            },
+          ],
+          '/zh/services/': [
+            {
+              text: '服务配置',
+              items: [
+                { text: '总览', link: '/zh/services/' },
+                { text: '和风天气', link: '/zh/services/weather' },
+                { text: '天地图', link: '/zh/services/map' },
+                { text: 'WebDAV', link: '/zh/services/webdav' },
+                { text: 'S3 / MinIO', link: '/zh/services/s3' },
+                { text: '局域网同步', link: '/zh/services/lan' },
+                { text: 'AI 大模型', link: '/zh/services/ai' },
+              ],
+            },
+          ],
+          '/zh/dev/': [
+            {
+              text: '入门',
+              items: [
+                { text: '参与贡献', link: '/zh/dev/' },
+                { text: '开发环境', link: '/zh/dev/setup' },
+              ],
+            },
+            {
+              text: '理解代码',
+              items: [
+                { text: '仓库结构与分层', link: '/zh/dev/architecture' },
+                { text: '编码约定', link: '/zh/dev/conventions' },
+              ],
+            },
+            {
+              text: '日常开发',
+              items: [
+                { text: '常用命令', link: '/zh/dev/workflow' },
+                { text: '代码生成', link: '/zh/dev/codegen' },
+                { text: '测试', link: '/zh/dev/testing' },
+              ],
+            },
+            {
+              text: '发布',
+              items: [
+                { text: '发布流程', link: '/zh/dev/release' },
+                { text: '常见问题', link: '/zh/dev/faq' },
+              ],
+            },
+          ],
+        },
+
+        outline: { level: [2, 3], label: '本页目录' },
+
+        search: {
+          provider: 'local',
+          options: {
+            miniSearch: {
+              options: { tokenize },
+              searchOptions: { tokenize },
+            },
+            translations: {
+              button: { buttonText: '搜索文档', buttonAriaLabel: '搜索文档' },
+              modal: {
+                displayDetails: '显示详细列表',
+                resetButtonTitle: '清空关键词',
+                backButtonTitle: '返回',
+                noResultsText: '没有找到相关结果',
+                footer: {
+                  selectText: '选择',
+                  navigateText: '切换',
+                  navigateUpKeyAriaLabel: '上一个',
+                  navigateDownKeyAriaLabel: '下一个',
+                  closeText: '关闭',
+                },
+              },
+            },
+          },
+        },
+
+        editLink: {
+          pattern:
+            'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
+          text: '在 GitHub 上编辑此页',
+        },
+
+        footer: {
+          message: '基于 AGPL-3.0 许可发布',
+          copyright: 'Copyright © 2022-present ZhuJHua 与 Moodiary 贡献者',
+        },
+
+        lastUpdated: {
+          text: '最后更新于',
+          formatOptions: { dateStyle: 'medium', timeStyle: 'short' },
+        },
+
+        docFooter: { prev: '上一篇', next: '下一篇' },
+
+        darkModeSwitchLabel: '外观',
+        lightModeSwitchTitle: '切换到浅色模式',
+        darkModeSwitchTitle: '切换到深色模式',
+        sidebarMenuLabel: '菜单',
+        returnToTopLabel: '返回顶部',
+        skipToContentLabel: '跳转到正文',
+
+        notFound: {
+          title: '页面不存在',
+          quote: '这里空空如也，也许链接已经失效了。',
+          linkLabel: '返回首页',
+          linkText: '返回首页',
+        },
+      },
+    },
+  },
+
+  themeConfig: {
+    // Locale-independent bits shared by every language.
+    logo: { light: '/logo-light.svg', dark: '/logo-dark.svg' },
     socialLinks: [{ icon: 'github', link: 'https://github.com/ZhuJHua/moodiary' }],
-
     externalLinkIcon: true,
-
-    footer: {
-      message: '基于 AGPL-3.0 许可发布',
-      copyright: 'Copyright © 2022-present ZhuJHua 与 Moodiary 贡献者',
-    },
-
-    lastUpdated: {
-      text: '最后更新于',
-      formatOptions: { dateStyle: 'medium', timeStyle: 'short' },
-    },
-
-    docFooter: { prev: '上一篇', next: '下一篇' },
-
-    darkModeSwitchLabel: '外观',
-    lightModeSwitchTitle: '切换到浅色模式',
-    darkModeSwitchTitle: '切换到深色模式',
-    sidebarMenuLabel: '菜单',
-    returnToTopLabel: '返回顶部',
-    skipToContentLabel: '跳转到正文',
-
-    notFound: {
-      title: '页面不存在',
-      quote: '这里空空如也，也许链接已经失效了。',
-      linkLabel: '返回首页',
-      linkText: '返回首页',
-    },
   },
 })

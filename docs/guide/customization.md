@@ -1,35 +1,35 @@
-# 主题与字体
+# Themes and fonts
 
-Moodiary 默认使用一套安静的**黑白灰度**配色，也允许你彻底改掉它。
+Moodiary ships with a calm **monochrome** palette by default, but you're free to replace it entirely.
 
-## 模式
+## Mode
 
-在 **设置 → 外观** 中可以选择：
+Under **Settings → Appearance** you can choose:
 
-- **跟随系统**：与系统深浅色模式保持一致；
-- **浅色** / **深色**：手动固定。
+- **Follow system**: matches your system's light or dark mode;
+- **Light** / **Dark**: fixed manually.
 
-## 强调色
+## Accent color
 
-强调色决定链接、按钮与高亮的颜色，提供三种模式：
+The accent color drives links, buttons, and highlights, and offers three modes:
 
-| 模式 | 说明 |
+| Mode | Notes |
 | --- | --- |
-| **黑白**（默认） | 一套灰度配色，安静克制，与系统提供的壁纸颜色无关 |
-| **跟随系统** | 使用 Android 12+ / iOS 的动态取色，从壁纸上提取颜色 |
-| **自定义** | 从色板中挑选一个喜欢的颜色 |
+| **Monochrome** (default) | A grayscale palette that stays quiet and restrained, independent of any wallpaper color your system provides |
+| **Follow system** | Uses Android 12+ / iOS dynamic color, sampling a color from your wallpaper |
+| **Custom** | Pick a color you like from the swatch |
 
-## 字体
+## Fonts
 
-**设置 → 字体** 支持导入自定义字体文件：
+**Settings → Fonts** lets you import custom font files:
 
-- 支持常见字体格式，包括 **可变字体**（导入后会显示「可变字体」徽标，并支持调节字重）；
-- 导入后的字体保存在应用数据目录中，随[备份](/guide/sync#备份)一起迁移。
+- Common font formats are supported, including **variable fonts** (imported fonts show a "variable font" badge and let you adjust the weight);
+- Imported fonts are stored in the app's data directory and migrate with your [backup](./sync#backup).
 
 ::: tip
-可变字体在深色模式与低亮度屏幕上通常有更好的阅读表现，试试把字重调到 400 以下。
+Variable fonts usually read better in dark mode and on dim screens — try dropping the weight below 400.
 :::
 
-## 排版细节
+## Typography details
 
-在设置中还可以调整首行缩进等排版选项，让编辑区更贴近你习惯的书写方式。
+In Settings you can also adjust options like first-line indentation, so the editor feels closer to how you like to write.

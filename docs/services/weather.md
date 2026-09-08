@@ -1,32 +1,32 @@
-# 和风天气
+# QWeather
 
-天气能力由[和风天气](https://www.qweather.com/)提供，用于自动记录日记当时的天气。
+Weather is powered by [QWeather](https://www.qweather.com/) and is used to auto-record the weather when you write an entry.
 
-## 获取密钥
+## Get an API key
 
-1. 注册[和风天气开发服务](https://console.qweather.com/)；
-2. 在控制台中创建一个 **项目**，并在项目下创建 **API Key**；
-3. 记下 **API Key** 与该 Key 所属的 **API Host**（形如 `xxxx.qweatherapi.com`）。
+1. Sign up for [QWeather Development Services](https://console.qweather.com/).
+2. In the console, create a **project**, then create an **API Key** under that project.
+3. Note down the **API Key** and the **API Host** it belongs to (something like `xxxx.qweatherapi.com`).
 
-::: warning API Host 必须填写
-和风天气 v3 之后，每个账号拥有专属的请求地址。只填 Key 不填 Host 会一直请求失败。
+::: warning The API Host is required
+Since QWeather v3, every account has its own dedicated request endpoint. Filling in only the key without the host will keep failing requests.
 :::
 
-## 在 Moodiary 中配置
+## Configure in Moodiary
 
-进入 **设置 → 服务 → 天气**：
+Go to **Settings → Services → Weather**:
 
-| 字段 | 说明 |
+| Field | Description |
 | --- | --- |
-| API Key | 上一步创建的 Key |
-| API Host | 你的专属请求域名 |
+| API Key | The key created above |
+| API Host | Your dedicated request domain |
 
-配置完成后，回到 **设置 → 服务** 打开：
+Once configured, go back to **Settings → Services** and enable:
 
-- **天气功能**：允许在日记中记录天气；
-- **自动获取天气**：保存日记时自动写入当前天气。
+- **Weather feature**: records weather in your journal.
+- **Auto-fetch weather**: writes the current weather automatically when you save an entry.
 
-## 常见问题
+## FAQ
 
-- **一直获取失败**：检查 API Host 是否与控制台中该 Key 绑定的域名一致；免费订阅需要实名认证后才会生效。
-- **免费额度**：个人开发者订阅提供每日免费请求量，日常记录足够使用；超出时可关闭自动获取。
+- **Requests keep failing**: check that the API Host matches the domain bound to the key in the console; the free subscription only takes effect after identity verification.
+- **Free quota**: the developer subscription includes a daily free request allowance, enough for everyday journaling; if you exceed it, you can turn off auto-fetch.
