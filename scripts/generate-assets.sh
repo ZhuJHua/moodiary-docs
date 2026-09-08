@@ -20,15 +20,15 @@ trap 'rm -rf "$tmp"' EXIT
   sed 's|<g clip-path=|<style>@media (prefers-color-scheme: dark){[fill="#54524E"]{fill:#808080}[fill="#2EB872"]{fill:#5CDE94}[fill="#FA4659"]{fill:#FFB3B3}}</style><g clip-path=|' "$brand/logo_light.svg"
 } > "$out/favicon.svg"
 
-# Raster copies: transparent for the hero-sized mark, white-backed for the
-# touch icon and the .ico fallback (transparent ICOs vanish on dark toolbars).
+# Raster copies: transparent 32x32 PNG as the Safari fallback (Safari does
+# not support SVG favicons; PNG keeps the transparency the .ico used to
+# flatten to white).  The touch icon stays white-backed — iOS renders
+# transparent regions of home-screen icons as black.
 rsvg-convert -w 512 -h 512 "$brand/logo_light.svg" -o "$tmp/512.png"
 rsvg-convert -w 180 -h 180 "$brand/logo_light.svg" -o "$tmp/180.png"
+rsvg-convert -w 32 -h 32 "$brand/logo_light.svg" -o "$out/favicon-32.png"
 
 magick "$tmp/512.png" -background white -alpha remove -alpha off \
   -resize 180x180 "$out/apple-touch-icon.png"
-magick "$tmp/512.png" -background white -alpha remove -alpha off \
-  \( -clone 0 -resize 16x16 \) \( -clone 0 -resize 32x32 \) \
-  \( -clone 0 -resize 48x48 \) -delete 0 "$out/favicon.ico"
 
 echo "✔ wrote icons to $out"
