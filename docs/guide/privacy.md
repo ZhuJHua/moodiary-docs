@@ -9,7 +9,7 @@ Under **Settings → App Lock** you can set a passcode lock:
 - The passcode is stored after Argon2id key derivation — even the app can't recover the plaintext;
 - Biometric unlock (fingerprint / Face ID) is supported for quick access;
 - "Lock immediately" locks the app the moment you switch away;
-- "Privacy blur" hides journal content in the app switcher.
+- "Privacy blur" hides diary content in the app switcher.
 
 ## Data storage
 

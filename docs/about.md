@@ -2,7 +2,7 @@
 
 ## Moodiary
 
-Moodiary is a cross-platform, fully open-source journaling app built with Flutter and Rust, released under the **AGPL-3.0** license. It contains no ads and collects none of your data.
+Moodiary is an open source diary app built with Flutter and Rust, released under the **AGPL-3.0** license. It contains no ads and collects none of your data.
 
 - Source code: <https://github.com/ZhuJHua/moodiary>
 - Releases: <https://github.com/ZhuJHua/moodiary/releases>

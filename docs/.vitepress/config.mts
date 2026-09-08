@@ -59,7 +59,7 @@ export default defineConfig({
       {
         property: 'og:description',
         content:
-          'A cross-platform, fully open-source journaling app built with Flutter and Rust. Offline-first, no ads, no tracking.',
+          'Open source diary app built with Flutter and Rust. Offline-first, no ads, no tracking.',
       },
     ],
     ['meta', { property: 'og:url', content: 'https://docs.moodiary.net/' }],
@@ -89,7 +89,7 @@ export default defineConfig({
       label: 'English',
       lang: 'en-US',
       description:
-        'Moodiary is a cross-platform, fully open-source journaling app built with Flutter and Rust. Offline-first, no ads, no data collection.',
+        'Moodiary is an open source diary app built with Flutter and Rust. Offline-first, no ads, no data collection.',
 
       themeConfig: {
         nav: [

@@ -1,10 +1,10 @@
-# Collections, search and calendar
+# Categories, search and calendar
 
 Once you have many entries, finding them is everything. Moodiary gives you four ways to get content back.
 
-## Collections
+## Categories
 
-From the home screen's sidebar you can create and manage collections (for example "Work", "Life", or "Reading notes"), and assign an entry to one when you write it. The list view can be filtered by collection.
+From the home screen's sidebar you can create and manage categories (for example "Work", "Life", or "Reading notes"), and assign an entry to one when you write it. The list view can be filtered by category.
 
 ## Full-text search
 
@@ -33,4 +33,4 @@ Every image, audio clip, and video you've ever inserted shows up in the **Media 
 
 ## Trash
 
-Deleted entries go to the trash first and can be restored at any time. The trash can also be filtered by collection, so nothing is truly "lost forever".
+Deleted entries go to the trash first and can be restored at any time. The trash can also be filtered by category, so nothing is truly "lost forever".

@@ -1,6 +1,6 @@
 # AI assistant
 
-Moodiary comes with a built-in AI assistant that understands your journal. You can chat with it, get help sorting out your moods, search directly, or even have it write entries for you.
+Moodiary comes with a built-in AI assistant that understands your diary. You can chat with it, get help sorting out your moods, search directly, or even have it write entries for you.
 
 ## Two ways to run it
 
@@ -18,18 +18,18 @@ Create a new provider under **Settings → AI Assistant** and fill in the [base 
 
 Prefer not to hand your content to a third party? You can download **local models**:
 
-- A mood suggestion model that analyzes your journal on-device and gives emotional feedback;
+- A mood suggestion model that analyzes your diary on-device and gives emotional feedback;
 - A semantic search model — see [Semantic search](./organize#semantic-search).
 
 Once downloaded, no network is required and nothing is ever sent anywhere.
 
 ## What it can do
 
-The assistant can call a set of controlled tools to work with your journal:
+The assistant can call a set of controlled tools to work with your diary:
 
-- Query and semantically search your journal;
+- Query and semantically search your diary;
 - Create, update, and delete entries (always with your explicit confirmation);
-- List your collections;
+- List your categories;
 - Remember preferences you tell it;
 - Run JavaScript in a controlled sandbox to process data.
 

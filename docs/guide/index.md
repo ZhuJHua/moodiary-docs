@@ -1,18 +1,18 @@
 # Meet Moodiary
 
-**Moodiary** is a cross-platform, fully open-source journal built with **Flutter** and **Rust**.
+**Moodiary** is an open source diary app built with **Flutter** and **Rust**.
 
 It works entirely offline: everything you write stays on your own device, with no ads and no data collection. **Android** and **iOS** apps are available today; the desktop app is being rebuilt.
 
 ## What it does
 
 - **Write entries**: the rich-text editor mixes text with images, audio and video, and supports Markdown.
-- **Find entries again**: full-text search, filtering by collection, a calendar timeline, and a trash for anything you delete.
+- **Find entries again**: full-text search, filtering by category, a calendar timeline, and a trash for anything you delete.
 - **Record your life**: save the places you visit often, log the weather, and replay your footsteps on a map.
-- **Take your data with you**: export to Markdown, Word, PDF or long images, or back up and restore the whole journal.
+- **Take your data with you**: export to Markdown, Word, PDF or long images, or back up and restore your whole diary.
 - **Sync across devices**: sync over WebDAV, S3 / MinIO or your local network (LAN), with optional end-to-end encryption.
 - **Stay private**: an app lock (password + biometrics), encrypted sync, and local-only storage.
-- **AI assistant**: connect an OpenAI- or Anthropic-compatible service, or run a fully offline local model.
+- **Assistant**: connect any OpenAI- or Anthropic-compatible provider, or run a fully offline local model.
 
 ## Design principles
 

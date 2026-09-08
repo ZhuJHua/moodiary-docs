@@ -14,14 +14,14 @@ Entries aren't just text. From the editor toolbar you can insert:
 - **Images**: pick from your album or take a photo on the spot;
 - **Audio** and **video**: handy for capturing a sound or a clip.
 
-Media files are stored in the app's data directory and managed together in the [media library](./organize#媒体库).
+Media files are stored in the app's data directory and managed together in the [media library](./organize#media-library).
 
-## Title, collection and weather
+## Title, category and weather
 
 On an entry's edit screen you can set:
 
 - **Title**: the first thing you see in the list;
-- **Collection**: groups entries on the same theme — see [collections](./organize#分类);
+- **Category**: groups entries on the same theme — see [categories](./organize#categories);
 - **Weather and place**: choose them manually, or have them filled in automatically after you configure [QWeather](../services/weather).
 
 ## Delete and trash

@@ -1,6 +1,6 @@
 # WebDAV
 
-Sync your journal to a cloud drive over the WebDAV protocol — handy for services that support it, like Nutstore, Nextcloud, and Synology.
+Sync your diary to a cloud drive over the WebDAV protocol — handy for services that support it, like Nutstore, Nextcloud, and Synology.
 
 ## Preparation
 

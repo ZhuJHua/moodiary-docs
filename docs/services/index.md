@@ -21,4 +21,4 @@ Requests for these services are sent directly from the app to the provider — M
 2. In Moodiary, go to **Settings → Services**, find the matching entry, and paste in the key.
 3. Return to the relevant feature page and verify it works.
 
-The free tier offered by most providers is usually enough for personal journaling.
+The free tier offered by most providers is usually enough for personal use.

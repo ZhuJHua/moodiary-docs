@@ -13,7 +13,7 @@ When editing an entry you can pick the weather by hand; or turn on the auto-fetc
 Auto-fetching the weather needs a [QWeather](../services/weather) API key — see [Weather service setup](../services/weather).
 
 ::: tip
-QWeather offers a free tier for individual developers, which is more than enough for everyday journaling.
+QWeather offers a free tier for individual developers, which is more than enough for everyday use.
 :::
 
 ## Places and footprints

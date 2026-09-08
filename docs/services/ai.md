@@ -31,7 +31,7 @@ Go to **Settings → AI Assistant → Providers** and add a provider:
 
 You can also toggle capability switches for the provider:
 
-- **Tool call**: lets the assistant search and act on your journal.
+- **Tool call**: lets the assistant search and act on your diary.
 - **Reasoning**: shows the chain of thought.
 - **Attachments** (vision): allows sending images.
 
