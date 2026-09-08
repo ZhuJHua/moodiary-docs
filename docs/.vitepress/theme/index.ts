@@ -1,17 +1,10 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
-import type { Theme } from 'vitepress'
+//
+// The default theme, re-skinned with Moodiary's monochrome palette.
+// `generated/monochrome.css` overrides the default theme CSS variables and is
+// regenerated from Material Color Utilities by `npm run theme:gen`.
 import DefaultTheme from 'vitepress/theme'
+import './generated/monochrome.css'
 import './style.css'
 
-export default {
-  extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    })
-  },
-  enhanceApp({ app, router, siteData }) {
-    // ...
-  }
-} satisfies Theme
+export default DefaultTheme

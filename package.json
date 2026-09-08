@@ -1,10 +1,19 @@
 {
-  "devDependencies": {
-    "vitepress": "^1.6.4"
-  },
+  "name": "moodiary-docs",
+  "version": "2.8.1",
+  "private": true,
+  "type": "module",
+  "description": "Documentation site for Moodiary, built with VitePress",
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "theme:gen": "node --import ./scripts/mcu-resolver.mjs scripts/generate-theme.mjs",
+    "docs:dev": "npm run theme:gen && vitepress dev docs",
+    "docs:build": "npm run theme:gen && vitepress build docs",
     "docs:preview": "vitepress preview docs"
+  },
+  "dependencies": {
+    "material_color_utils": "npm:@material/material-color-utilities@^0.4.0"
+  },
+  "devDependencies": {
+    "vitepress": "2.0.0-alpha.20"
   }
 }
