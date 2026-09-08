@@ -39,9 +39,11 @@ You can also toggle capability switches for the provider:
 The app ships with presets for common providers (from the public directory at [models.dev](https://models.dev/), cached for 24 hours). After picking a preset, you only need to enter the API key.
 :::
 
-## Prefer not to go online?
+## Prefer to stay offline?
 
-You can switch to a fully offline [local model](../guide/assistant#2-fully-offline-local-models) — download it in Settings and use it with no key required.
+Chat models always come from a provider you configure — to keep third-party clouds out of the loop, self-host an inference service such as Ollama or LM Studio and your content never leaves your machines (see "Local services" above).
+
+Separately, two on-device models power [mood suggestion](../guide/assistant#2-on-device-models) and [semantic search](../guide/organize#semantic-search) — download them in Settings and they work fully offline, no key required.
 
 ## Privacy
 

@@ -32,5 +32,5 @@ features:
   - title: 主题与字体
     details: 默认黑白灰度配色，支持跟随系统动态取色、自定义强调色，以及导入包括可变字体在内的自定义字体。
   - title: 智能助手
-    details: 接入任意 OpenAI 或 Anthropic 兼容供应商，也可以完全离线运行本地模型，提供问答、日记工具调用与心情建议。
+    details: 接入任意 OpenAI 或 Anthropic 兼容供应商，支持 Ollama 等自建服务；心情建议与语义搜索由端侧模型离线完成。
 ---

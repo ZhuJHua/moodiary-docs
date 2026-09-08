@@ -12,7 +12,7 @@ It works entirely offline: everything you write stays on your own device, with n
 - **Take your data with you**: export to Markdown, Word, PDF or long images, or back up and restore your whole diary.
 - **Sync across devices**: sync over WebDAV, S3 / MinIO or your local network (LAN), with optional end-to-end encryption.
 - **Stay private**: an app lock (password + biometrics), encrypted sync, and local-only storage.
-- **Assistant**: connect any OpenAI- or Anthropic-compatible provider, or run a fully offline local model.
+- **Assistant**: connect any OpenAI- or Anthropic-compatible provider (self-hosted Ollama works too); mood suggestions and semantic search run fully offline on-device.
 
 ## Design principles
 

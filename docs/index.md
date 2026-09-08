@@ -32,5 +32,5 @@ features:
   - title: Themes and fonts
     details: Ships with a default monochrome palette, plus dynamic color that follows your system, custom accent colors, and custom fonts — variable fonts included.
   - title: Assistant
-    details: Connect any OpenAI- or Anthropic-compatible provider — or run local models fully offline — for chat, diary tools and mood suggestions.
+    details: Connect any OpenAI- or Anthropic-compatible provider, including self-hosted Ollama; mood suggestions and semantic search run offline on-device.
 ---
