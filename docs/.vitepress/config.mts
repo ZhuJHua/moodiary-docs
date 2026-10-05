@@ -4,10 +4,9 @@ import { defineConfig } from 'vitepress'
 //
 // The site root serves English (the default and fallback locale); Simplified
 // Chinese lives under `/zh/`.  A tiny inline script in `head` redirects
-// visitors to the locale matching `navigator.language` on every hard page
-// load (stateless — the site keeps following the browser environment); the
-// default theme persists explicit manual switches (see theme/index.ts),
-// which then take precedence over detection.
+// visitors to the locale matching their browser languages on every hard page
+// load.  A manual switch only holds for the current tab (see theme/index.ts);
+// nothing is persisted across tabs or sessions.
 
 /**
  * Tokenise for MiniSearch: Han runs become overlapping bigrams, everything
@@ -50,23 +49,37 @@ const prefixLastTermOnly = (_term: string, index: number, terms: string[]) =>
 /**
  * Redirect visitors to the locale their browser prefers.
  *
- * Detection is stateless: it runs on every hard page load and never persists
- * anything, so the site keeps following the browser environment.  It only
- * yields to an explicit choice stored by theme/index.ts under the
- * `vitepress-locale-choice` key (set when the visitor deliberately navigates
- * across a locale boundary).
+ * The preferred locale is the first entry of `navigator.languages` that the
+ * site serves, falling back to English.  A manual switch made in this tab
+ * (`sessionStorage`, written by theme/index.ts) takes precedence, so it lasts
+ * until the tab closes and never leaks into other tabs.
+ *
+ * Earlier builds persisted manual switches in `localStorage`, which kept
+ * returning visitors on the wrong locale; that key is cleared here.
  */
 const localeDetector = `;(function () {
+  try { localStorage.removeItem('vitepress-locale-choice') } catch (e) {}
   try {
-    if (localStorage.getItem('vitepress-locale-choice')) return
     var path = location.pathname
     var inZh = path === '/zh' || path.indexOf('/zh/') === 0
-    var wantZh = /^zh\\b/i.test(navigator.language || 'en')
-    if (wantZh === inZh) return
-    var target = wantZh
+    var want = null
+    try { want = sessionStorage.getItem('moodiary-locale') } catch (e) {}
+    if (want !== 'zh' && want !== 'en') {
+      var langs = navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || '']
+      want = 'en'
+      for (var i = 0; i < langs.length; i++) {
+        var lang = String(langs[i]).toLowerCase()
+        if (lang === 'zh' || lang.indexOf('zh-') === 0) { want = 'zh'; break }
+        if (lang === 'en' || lang.indexOf('en-') === 0) break
+      }
+    }
+    if ((want === 'zh') === inZh) return
+    var target = want === 'zh'
       ? '/zh' + (path === '/' ? '/' : path)
       : path.replace(/^\\/zh(?=\\/|$)/, '')
-    location.replace(target || '/')
+    location.replace((target || '/') + location.search + location.hash)
   } catch (e) {}
 })()`
 
