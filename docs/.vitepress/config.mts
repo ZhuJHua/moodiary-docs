@@ -2,11 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/guide/i18n
 //
-// The site root serves English (the default and fallback locale); Simplified
-// Chinese lives under `/zh/`.  A tiny inline script in `head` redirects
-// visitors to the locale matching their browser languages on every hard page
-// load.  A manual switch only holds for the current tab (see theme/index.ts);
-// nothing is persisted across tabs or sessions.
+// The site root serves English (the default locale); Simplified Chinese lives
+// under `/zh/` and is reached through the language switcher.
 
 /**
  * Tokenise for MiniSearch: Han runs become overlapping bigrams, everything
@@ -46,43 +43,6 @@ function tokenize(text: string): string[] {
 const prefixLastTermOnly = (_term: string, index: number, terms: string[]) =>
   index === terms.length - 1
 
-/**
- * Redirect visitors to the locale their browser prefers.
- *
- * The preferred locale is the first entry of `navigator.languages` that the
- * site serves, falling back to English.  A manual switch made in this tab
- * (`sessionStorage`, written by theme/index.ts) takes precedence, so it lasts
- * until the tab closes and never leaks into other tabs.
- *
- * Earlier builds persisted manual switches in `localStorage`, which kept
- * returning visitors on the wrong locale; that key is cleared here.
- */
-const localeDetector = `;(function () {
-  try { localStorage.removeItem('vitepress-locale-choice') } catch (e) {}
-  try {
-    var path = location.pathname
-    var inZh = path === '/zh' || path.indexOf('/zh/') === 0
-    var want = null
-    try { want = sessionStorage.getItem('moodiary-locale') } catch (e) {}
-    if (want !== 'zh' && want !== 'en') {
-      var langs = navigator.languages && navigator.languages.length
-        ? navigator.languages
-        : [navigator.language || '']
-      want = 'en'
-      for (var i = 0; i < langs.length; i++) {
-        var lang = String(langs[i]).toLowerCase()
-        if (lang === 'zh' || lang.indexOf('zh-') === 0) { want = 'zh'; break }
-        if (lang === 'en' || lang.indexOf('en-') === 0) break
-      }
-    }
-    if ((want === 'zh') === inZh) return
-    var target = want === 'zh'
-      ? '/zh' + (path === '/' ? '/' : path)
-      : path.replace(/^\\/zh(?=\\/|$)/, '')
-    location.replace((target || '/') + location.search + location.hash)
-  } catch (e) {}
-})()`
-
 export default defineConfig({
   title: 'Moodiary',
 
@@ -103,7 +63,6 @@ export default defineConfig({
       },
     ],
     ['meta', { property: 'og:url', content: 'https://docs.moodiary.net/' }],
-    ['script', {}, localeDetector],
     [
       'script',
       {
