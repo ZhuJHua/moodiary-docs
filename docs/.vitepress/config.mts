@@ -2,12 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/guide/i18n
 //
-// The site root serves English (the default and fallback locale); Simplified
-// Chinese lives under `/zh/`.  A tiny inline script in `head` redirects
-// visitors to the locale matching `navigator.language` on every hard page
-// load (stateless — the site keeps following the browser environment); the
-// default theme persists explicit manual switches (see theme/index.ts),
-// which then take precedence over detection.
+// The site root serves English (the default locale); Simplified Chinese lives
+// under `/zh/` and is reached through the language switcher.
 
 /**
  * Tokenise for MiniSearch: Han runs become overlapping bigrams, everything
@@ -47,29 +43,6 @@ function tokenize(text: string): string[] {
 const prefixLastTermOnly = (_term: string, index: number, terms: string[]) =>
   index === terms.length - 1
 
-/**
- * Redirect visitors to the locale their browser prefers.
- *
- * Detection is stateless: it runs on every hard page load and never persists
- * anything, so the site keeps following the browser environment.  It only
- * yields to an explicit choice stored by theme/index.ts under the
- * `vitepress-locale-choice` key (set when the visitor deliberately navigates
- * across a locale boundary).
- */
-const localeDetector = `;(function () {
-  try {
-    if (localStorage.getItem('vitepress-locale-choice')) return
-    var path = location.pathname
-    var inZh = path === '/zh' || path.indexOf('/zh/') === 0
-    var wantZh = /^zh\\b/i.test(navigator.language || 'en')
-    if (wantZh === inZh) return
-    var target = wantZh
-      ? '/zh' + (path === '/' ? '/' : path)
-      : path.replace(/^\\/zh(?=\\/|$)/, '')
-    location.replace(target || '/')
-  } catch (e) {}
-})()`
-
 export default defineConfig({
   title: 'Moodiary',
 
@@ -90,7 +63,6 @@ export default defineConfig({
       },
     ],
     ['meta', { property: 'og:url', content: 'https://docs.moodiary.net/' }],
-    ['script', {}, localeDetector],
     [
       'script',
       {
