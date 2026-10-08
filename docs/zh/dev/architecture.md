@@ -1,82 +1,52 @@
-# 仓库结构与分层
+# 架构
 
-Moodiary 采用 **分层 pub workspace monorepo**：根目录的 `pubspec.yaml` 只负责协调 workspace 与 Melos，应用本体在 `mobile/`，共享代码在 `packages/` 下按依赖方向分为四层。
+Moodiary 是一个 pub workspace monorepo。`mobile/` 是唯一的 Flutter 应用（Android 和 iOS）。约 30 个共享包放在 `packages/` 下，分为四层。根 `pubspec.yaml` 只负责 workspace 和 Melos，不含应用代码。
 
-## 顶层结构
+本页只讲评审中会遇到的规则。各部分的详细说明（DI、路由、i18n、KV、搜索、Rust 包）见仓库里的 [`CLAUDE.md`](https://github.com/ZhuJHua/moodiary/blob/develop/CLAUDE.md)。改动某一块之前，先读对应章节。
+
+## 分层
 
 ```
-moodiary/
-├── tool/          # 任务运行器、分层检查、发布脚本
-├── mobile/        # Flutter 应用（pub 名 moodiary，Android + iOS）
-│   └── lib/
-│       ├── app/   # 组合层：DI、路由、壳、生命周期、设置
-│       └── main.dart
-├── packages/
-│   ├── foundation/    # 第 1 层：无内部依赖
-│   ├── core/          # 第 2 层：领域无关的基础设施
-│   ├── feature_base/  # 第 3 层：可复用的领域基础
-│   └── feature/       # 第 4 层：彼此独立的功能模块
-└── pubspec.yaml       # workspace + Melos 配置，没有应用代码
+foundation  ->  core  ->  feature_base  ->  feature  ->  mobile/
 ```
 
-## 四个依赖层
-
-依赖方向严格为 `foundation → core → feature_base → feature → apps`：
-
-### foundation
-
-叶子层，不依赖任何内部包。
-
-| 包 | 职责 |
+| 层 | 内容 |
 | --- | --- |
-| `moodiary_lint` | 共享 analyzer 规则 |
-| `moodiary_di` | 全局唯一的 get_it 实例 |
-| `moodiary_logging` | 日志；磁盘路径由组合根注入 |
-| `moodiary_i18n` | 基于 slang 的文案与查找入口 |
-| `moodiary_router` | 基于 go_router 的类型化路由原语 |
-| `mui` | 设计系统，Material 的补充 |
-| `moodiary_utils` | 纯工具函数与内容转换 |
-| `moodiary_rust` | HTTP 客户端/服务端、WebDAV/S3 同步、LLM、图布局 |
-| `fast_image` | 图片管线（缩略图、区域解码、平铺查看） |
-| `fast_press` | 排版导出为 PDF / DOCX |
-| `fast_tokenizer` | jieba + HF tokenizer 分词 |
-| `fast_crypto` | AES-GCM + Argon2id |
-| `fast_zip` | 压缩与解压（支持条目级 AES） |
-| `moodiary_sqlite_vec` | sqlite-vec，本地向量检索 |
+| `foundation` | 没有内部依赖的底层包：DI 容器、日志、i18n、路由原语、`mui` 设计系统、工具函数，以及原生包 `fast_*` / `moodiary_rust`。 |
+| `core` | 与业务无关的基础设施：平台、HTTP、KV 存储、文件布局、主题。`core` 不知道 `Diary`、`Category` 这类业务类型。 |
+| `feature_base` | 模型、drift 数据库与仓库、共享组件、迁移、偏好设置、端侧 ML、媒体选择器和编辑器。 |
+| `feature` | `diary`、`sync`、`export`、`assistant`、`media`、`lock`。 |
+| `mobile/` | 组装层：DI 配置、路由、外壳、生命周期和设置。 |
 
-### core
+`core` 和 `feature_base` 层内还有顺序。同一级的包互不导入。
 
-领域无关的基础设施：`moodiary_platform`（目录/生物识别/网络状态）、`moodiary_http`、`moodiary_storage`（KV 与安全 KV）、`moodiary_files`（文件布局与媒体管线）、`moodiary_theme`（配色、字体、ThemeData）。
+## CI 检查的规则 {#rules-ci-enforces}
 
-**core 不认识任何领域类型**（`Diary`、`Category`、`Font` 都不在这一层）。
+`tool/check_layers.dart` 在 `analyze` 和 CI 中运行，以 `tool/layer_baseline.txt` 为零基线。它会拒绝：
 
-### feature_base
+- 包依赖右边的层；
+- feature 之间互相导入。共享逻辑下沉一层，组合多个 feature 的逻辑放在 `mobile/lib/app`；
+- 违反 `core` 或 `feature_base` 层内顺序；
+- 业务代码导入 `package:flutter/material.dart`。请改为导入 `package:mui/mui.dart`。`mui` 重新导出 Material，并以 `M` 前缀补充 Material 没有的组件。
 
-`moodiary_models`（Freezed 模型与 DTO）、`moodiary_data`（drift 数据库、仓库、控制器）、`moodiary_components`、`moodiary_migration`（旧版本一次性迁移）、`moodiary_preferences`、`moodiary_ml`（本地 ML）、`moodiary_picker`（媒体选择）、`moodiary_editor`（TipTap 编辑器）。
+评审时还会检查：
 
-### feature
+- 依赖版本精确钉死，不用 `^`。
+- 新的第三方依赖加到实际使用它的那一层的包里，不加到 `mobile/`。
+- 新包要在根 `pubspec.yaml` 的 `workspace` 和 Melos 的 `categories` 中登记。
 
-彼此**互不引用**的功能包：`moodiary_diary`、`moodiary_sync`、`moodiary_export`、`moodiary_assistant`、`moodiary_media`、`moodiary_lock`。
+## 原生代码
 
-跨功能组合统一放在 `mobile/lib/app` 中完成。
+- Rust 代码位于 `packages/foundation/*/rust`，共有六个原生包。每个包有自己的 crate、原生库、构建钩子、`rust-toolchain.toml` 和 `Cargo.lock`。不使用 `[workspace.dependencies]`，由 `tool/check_generated.dart` 保证共享依赖的版本一致。
+- Dart 只通过 [flutter_rust_bridge](https://cjycode.com/flutter_rust_bridge/) 调用 Rust。修改 `rust/src/api` 后运行 `dart tool/task.dart gen-rust`。
+- 原生库由 Native Assets 构建钩子编译。每个包提供可重复调用的 `Xxx.ensureInitialized()`。`CancelToken` 这类不透明句柄不能跨库传递，所以每个库各自构造自己的句柄。
+- 全文搜索使用 [`sqlite3_simple`](https://github.com/ZhuJHua/sqlite3_simple)，它是 `simple` FTS5 分词器的 fork，以 git 依赖钉定。它是唯一不走 FRB 的原生库。
 
-## 分层是如何强制的
+## 不明显的约定
 
-pub 只能保证无环，无法保证方向。`tool/check_layers.dart` 以 `tool/layer_baseline.txt` 为基线做静态检查，会拒绝：
-
-- 下层依赖上层；
-- 同层互引；
-- 层内顺序违规（core 与 feature_base 各有内部顺序）；
-- 业务代码直接 import `material`（必须经由 `package:mui/mui.dart`）。
-
-CI 会在每次 Pull Request 上运行该检查。
-
-## 应用内分层
-
-`mobile/lib` 内部也有自己的顺序：`gen → core → data → component → feature/<x> → app → main.dart`。
-
-## 放代码的原则
-
-- **feature 之间不互相引用**。需要共享的逻辑下沉一层；
-- 跨功能的组合逻辑写进 `mobile/lib/app`；
-- 新增第三方依赖时，优先放进它所属的那一层的包，而不是 `mobile/`。
+- **Barrel** 导出整个文件，不用 `show`。文件私有的符号用 `_`，包内私有的用 `@internal` 并在 barrel 上 `hide`，只给测试用的标 `@visibleForTesting`。
+- **DI** 使用 get_it + injectable。注解写在实现类上。全仓只有一个 `configureDependencies`，位于 `mobile/lib/app/di/di.dart`。用 `getIt<X>()` 取实例，测试以外不要手写 `getIt.register*`。Riverpod 只管理 UI 状态。
+- **路由** 使用 go_router，不用路径参数和查询参数。路由类都在 `moodiary_router`，通过 `extra` 传递只含 JSON 标量的 `params`。每个页面提供 `factory X.fromRoute(GoRouterState)`。
+- **i18n** 使用 [slang](https://pub.dev/packages/slang)。App 文案在 `i18n/flutter`，编辑器页面文案在 `i18n/web`。新增文案 `zh` 和 `en` 都要写。Widget 里用 `context.l10n`，服务里用顶层 `l10n`。发给模型的提示词和工具描述硬编码为英文，不进入 i18n。
+- **KV 存储**（MMKV）是同步的。API Key 等密钥放在 `MoodiarySecureKVs`。应用锁密码只能通过 `AppLockPin` 读写。
+- **数据格式**：修改数据库结构、同步布局或局域网协议必须带迁移方案，并在 PR 描述里写明。破坏性的改动还要加上 `BREAKING CHANGE:` footer。见 [Pull Request](./pull-requests#description-and-footers)。

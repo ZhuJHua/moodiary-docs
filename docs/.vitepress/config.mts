@@ -148,32 +148,19 @@ export default defineConfig({
           ],
           '/dev/': [
             {
-              text: 'Getting Started',
+              text: 'Contributing',
               items: [
                 { text: 'Contributing', link: '/dev/' },
+                { text: 'Pull Requests', link: '/dev/pull-requests' },
+                { text: 'AI Policy', link: '/dev/ai-policy' },
+              ],
+            },
+            {
+              text: 'Development',
+              items: [
                 { text: 'Development Setup', link: '/dev/setup' },
-              ],
-            },
-            {
-              text: 'Understanding the Code',
-              items: [
-                { text: 'Repository Structure & Layers', link: '/dev/architecture' },
-                { text: 'Coding Conventions', link: '/dev/conventions' },
-              ],
-            },
-            {
-              text: 'Day-to-Day Development',
-              items: [
-                { text: 'Common Commands', link: '/dev/workflow' },
-                { text: 'Code Generation', link: '/dev/codegen' },
+                { text: 'Architecture', link: '/dev/architecture' },
                 { text: 'Testing', link: '/dev/testing' },
-              ],
-            },
-            {
-              text: 'Releasing',
-              items: [
-                { text: 'Release Process', link: '/dev/release' },
-                { text: 'FAQ', link: '/dev/faq' },
               ],
             },
           ],
@@ -183,7 +170,7 @@ export default defineConfig({
 
         editLink: {
           pattern:
-            'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
+            'https://github.com/ZhuJHua/moodiary-docs/edit/main/docs/:path',
           text: 'Edit this page on GitHub',
         },
 
@@ -272,32 +259,19 @@ export default defineConfig({
           ],
           '/zh/dev/': [
             {
-              text: '入门',
+              text: '参与贡献',
               items: [
                 { text: '参与贡献', link: '/zh/dev/' },
+                { text: 'Pull Request', link: '/zh/dev/pull-requests' },
+                { text: 'AI 政策', link: '/zh/dev/ai-policy' },
+              ],
+            },
+            {
+              text: '开发',
+              items: [
                 { text: '开发环境', link: '/zh/dev/setup' },
-              ],
-            },
-            {
-              text: '理解代码',
-              items: [
-                { text: '仓库结构与分层', link: '/zh/dev/architecture' },
-                { text: '编码约定', link: '/zh/dev/conventions' },
-              ],
-            },
-            {
-              text: '日常开发',
-              items: [
-                { text: '常用命令', link: '/zh/dev/workflow' },
-                { text: '代码生成', link: '/zh/dev/codegen' },
+                { text: '架构', link: '/zh/dev/architecture' },
                 { text: '测试', link: '/zh/dev/testing' },
-              ],
-            },
-            {
-              text: '发布',
-              items: [
-                { text: '发布流程', link: '/zh/dev/release' },
-                { text: '常见问题', link: '/zh/dev/faq' },
               ],
             },
           ],
@@ -307,7 +281,7 @@ export default defineConfig({
 
         editLink: {
           pattern:
-            'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
+            'https://github.com/ZhuJHua/moodiary-docs/edit/main/docs/:path',
           text: '在 GitHub 上编辑此页',
         },
 

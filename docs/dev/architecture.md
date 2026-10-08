@@ -1,82 +1,52 @@
-# Repository structure and layers
+# Architecture
 
-Moodiary is a **layered pub workspace monorepo**: the `pubspec.yaml` at the root only coordinates the workspace and Melos, the app itself lives in `mobile/`, and the shared code sits under `packages/`, split into four layers along the direction of dependency.
+Moodiary is a pub-workspace monorepo. `mobile/` is the only Flutter app (Android and iOS). About 30 shared packages live under `packages/` in four layers. The root `pubspec.yaml` coordinates the workspace and Melos and contains no app code.
 
-## Top-level structure
+This page covers the rules you will hit in review. The repository's [`CLAUDE.md`](https://github.com/ZhuJHua/moodiary/blob/develop/CLAUDE.md) is the detailed reference for each area (DI, routing, i18n, KV, search, Rust packages). Read the relevant section before you change an area.
+
+## Layers
 
 ```
-moodiary/
-├── tool/          # task runner, layer check, release scripts
-├── mobile/        # Flutter app (pub name moodiary, Android + iOS)
-│   └── lib/
-│       ├── app/   # composition layer: DI, routing, shell, lifecycle, settings
-│       └── main.dart
-├── packages/
-│   ├── foundation/    # layer 1: no internal dependencies
-│   ├── core/          # layer 2: domain-agnostic infrastructure
-│   ├── feature_base/  # layer 3: reusable domain foundations
-│   └── feature/       # layer 4: feature modules, independent of one another
-└── pubspec.yaml       # workspace + Melos config, no app code
+foundation  ->  core  ->  feature_base  ->  feature  ->  mobile/
 ```
 
-## The four dependency layers
-
-Dependencies flow strictly in one direction: `foundation → core → feature_base → feature → apps`.
-
-### foundation
-
-The leaf layer. Nothing here depends on any internal package.
-
-| Package | Responsibility |
+| Layer | Contents |
 | --- | --- |
-| `moodiary_lint` | Shared analyzer rules |
-| `moodiary_di` | The single global get_it instance |
-| `moodiary_logging` | Logging; the disk path is injected by the composition root |
-| `moodiary_i18n` | slang-based copy and the lookup entry point |
-| `moodiary_router` | Typed routing primitives on top of go_router |
-| `mui` | The design system, complementing Material |
-| `moodiary_utils` | Pure helper functions and content conversion |
-| `moodiary_rust` | HTTP client/server, WebDAV/S3 sync, LLM, graph layout |
-| `fast_image` | Image pipeline (thumbnails, region decoding, tiled viewing) |
-| `fast_press` | Typeset export to PDF / DOCX |
-| `fast_tokenizer` | Tokenization with jieba + HF tokenizer |
-| `fast_crypto` | AES-GCM + Argon2id |
-| `fast_zip` | Compression and extraction (with per-entry AES) |
-| `moodiary_sqlite_vec` | sqlite-vec, local vector search |
+| `foundation` | Leaf packages with no internal dependencies: DI container, logging, i18n, router primitives, the `mui` design system, utilities, and the native `fast_*` / `moodiary_rust` packages. |
+| `core` | Domain-free infrastructure: platform, HTTP, KV storage, file layout, theme. `core` knows no domain type such as `Diary` or `Category`. |
+| `feature_base` | Models, the drift database and repositories, shared components, migration, preferences, on-device ML, the media picker and the editor. |
+| `feature` | `diary`, `sync`, `export`, `assistant`, `media`, `lock`. |
+| `mobile/` | The composition layer: DI setup, routing, shell, lifecycle and settings. |
 
-### core
+`core` and `feature_base` also have an order inside the layer. Packages at the same tier never import each other.
 
-Domain-agnostic infrastructure: `moodiary_platform` (directories, biometrics, network status), `moodiary_http`, `moodiary_storage` (KV and secure KV), `moodiary_files` (file layout and the media pipeline) and `moodiary_theme` (color schemes, fonts, `ThemeData`).
+## Rules CI enforces
 
-**core knows nothing about domain types** — `Diary`, `Category` and `Font` do not exist at this layer.
+`tool/check_layers.dart` runs in `analyze` and in CI, against a zero baseline in `tool/layer_baseline.txt`. It rejects:
 
-### feature_base
+- a package depending on a layer to its right;
+- a feature importing another feature. Shared logic moves down a layer; logic that combines features goes in `mobile/lib/app`;
+- a violation of the order inside `core` or `feature_base`;
+- business code importing `package:flutter/material.dart`. Import `package:mui/mui.dart` instead. `mui` re-exports Material and adds what Material lacks, with an `M` prefix.
 
-`moodiary_models` (Freezed models and DTOs), `moodiary_data` (drift database, repositories, controllers), `moodiary_components`, `moodiary_migration` (one-off migrations from older versions), `moodiary_preferences`, `moodiary_ml` (on-device ML), `moodiary_picker` (media picking) and `moodiary_editor` (the TipTap editor).
+Other rules checked in review:
 
-### feature
+- Dependency versions are pinned exactly, with no `^`.
+- A new third-party dependency goes into the package in the layer that uses it, not into `mobile/`.
+- A new package is registered in the root `pubspec.yaml` under `workspace` and in the Melos `categories`.
 
-Feature packages that **never reference each other**: `moodiary_diary`, `moodiary_sync`, `moodiary_export`, `moodiary_assistant`, `moodiary_media` and `moodiary_lock`.
+## Native code
 
-Anything that combines features belongs in `mobile/lib/app`.
+- Rust code lives in `packages/foundation/*/rust`. There are six native packages. Each owns its crate, native library, build hook, `rust-toolchain.toml` and `Cargo.lock`. There is no `[workspace.dependencies]`; `tool/check_generated.dart` keeps the shared pins identical.
+- Dart talks to Rust only through [flutter_rust_bridge](https://cjycode.com/flutter_rust_bridge/). After changing `rust/src/api`, run `dart tool/task.dart gen-rust`.
+- Libraries are compiled by Native Assets build hooks. Each package exposes an idempotent `Xxx.ensureInitialized()`. Opaque handles such as `CancelToken` cannot cross library boundaries, so each library constructs its own.
+- Full-text search uses [`sqlite3_simple`](https://github.com/ZhuJHua/sqlite3_simple), a fork of the `simple` FTS5 tokenizer pinned as a git dependency. It is the one native library outside FRB.
 
-## How the layering is enforced
+## Conventions that are not obvious
 
-pub can only guarantee that there are no cycles, not that dependencies point the right way. `tool/check_layers.dart` performs a static check against the baseline in `tool/layer_baseline.txt` and rejects:
-
-- a lower layer depending on a higher one;
-- packages within the same layer importing each other;
-- violations of the intra-layer order (core and feature_base each have an internal order);
-- product code importing `material` directly (it has to go through `package:mui/mui.dart`).
-
-CI runs this check on every Pull Request.
-
-## Layering inside the app
-
-`mobile/lib` has an order of its own too: `gen → core → data → component → feature/<x> → app → main.dart`.
-
-## Deciding where code goes
-
-- **Features never reference each other.** If two of them need the same logic, push it down a layer.
-- Logic that combines features goes into `mobile/lib/app`.
-- When you add a third-party dependency, add it to the package in the layer it belongs to rather than to `mobile/`.
+- **Barrels** export whole files without `show`. Hide file-private symbols with `_`, package-private ones with `@internal` plus a `hide` on the barrel, and test-only ones with `@visibleForTesting`.
+- **DI** uses get_it + injectable. Annotate the implementation class. There is one `configureDependencies`, in `mobile/lib/app/di/di.dart`. Resolve with `getIt<X>()` and never call `getIt.register*` by hand outside tests. Riverpod holds UI state only.
+- **Routing** uses go_router with no path or query parameters. Route classes live in `moodiary_router` and pass a `params` map of JSON scalars through `extra`. Each page has a `factory X.fromRoute(GoRouterState)`.
+- **i18n** uses [slang](https://pub.dev/packages/slang). App strings live in `i18n/flutter`, editor-page strings in `i18n/web`. Add every new string in both `zh` and `en`. Use `context.l10n` in widgets and the top-level `l10n` in services. Prompts and tool descriptions sent to a model are hardcoded English and stay out of i18n.
+- **KV storage** (MMKV) is synchronous. Secrets such as API keys go in `MoodiarySecureKVs`. The app-lock passcode is only read or written through `AppLockPin`.
+- **Data formats**: a change to the database schema, the sync layout or the LAN protocol needs a migration path and must be called out in the PR description. A breaking one also carries a `BREAKING CHANGE:` footer. See [Pull requests](./pull-requests#description-and-footers).

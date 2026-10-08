@@ -1,41 +1,39 @@
 # Contributing
 
-Moodiary is an open-source project (AGPL-3.0), and contributions of every kind are welcome.
+Moodiary is an open-source Flutter + Rust diary app licensed under [AGPL-3.0](https://github.com/ZhuJHua/moodiary/blob/develop/LICENSE). Bug reports, ideas, translations, documentation and code are all welcome. By submitting a PR you agree that your contribution is licensed under AGPL-3.0.
 
-## What you can do
+## Ways to help
 
-- **Report problems**: file bugs on [GitHub Issues](https://github.com/ZhuJHua/moodiary/issues), and include your device model, OS version, app version and the steps to reproduce.
-- **Suggest features**: feature requests go through Issues as well — search first to see whether the discussion already exists.
-- **Improve the docs**: this site lives in the [moodiary-docs](https://github.com/ZhuJHua/moodiary-docs) repository, so you can simply open a Pull Request (every page has an "Edit this page on GitHub" link in the bottom-right corner).
-- **Translate**: the app's copy is managed with [slang](https://pub.dev/packages/slang), and the translation files live in `packages/foundation/moodiary_i18n`.
-- **Write code**: start by reading [Development environment](./setup) and [Coding conventions](./conventions).
+- **Report a bug or suggest a feature** with one of the [issue templates](https://github.com/ZhuJHua/moodiary/issues/new/choose). Search first; a 👍 on an existing issue helps more than a duplicate.
+- **Translate**: app strings live in `i18n/flutter` and editor strings in `i18n/web`, as `zh` and `en` JSON files.
+- **Improve these docs**: they live in [moodiary-docs](https://github.com/ZhuJHua/moodiary-docs). Every page has an "Edit this page on GitHub" link.
+- **Write code**: read the process below, then [Development setup](./setup).
 
-## Development workflow at a glance
+## Where to ask
 
-```
-fork / clone → set up the environment → create a branch → build and test → open a Pull Request
-```
+Ask questions on the [forum](https://answer.moodiary.net), in the Telegram group [openmoodiary](https://t.me/openmoodiary) or in QQ group 760014526. Use issues for bugs and feature requests only.
 
-- Branch off `develop`.
-- Give your Pull Request a title in [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) style (for example `feat: support EPUB export`).
-- CI runs analysis, the layer check and the tests; everything has to pass before the branch can be merged.
+## The PR process
 
-## Pull request checklist
+1. **Discuss first.** Small fixes can go straight to a PR. For a new feature or a large refactor, open an issue and agree on the direction before you write the code.
+2. **Branch from `develop`** in your fork, and open the PR against `develop`.
+3. **One topic per PR.**
+4. **Follow the [PR conventions](./pull-requests).** The title is a Conventional Commit, and the title and description are in English.
+5. **CI must be green.** Run the [checks](./testing#running-the-same-checks-locally) locally first.
+6. **AI tools are welcome.** You still review, understand and own the result; see the [AI policy](./ai-policy).
 
-Before you submit, make sure that:
+Releases are cut by the maintainer.
 
-- [ ] `dart tool/task.dart analyze` passes;
-- [ ] the relevant tests pass (`dart tool/task.dart test`);
-- [ ] anything that touches code generation has been regenerated and committed (see [Code generation](./codegen));
-- [ ] new features come with tests or an explanation;
-- [ ] user-facing copy goes through i18n instead of being hardcoded.
+## Developer guide
 
-## Community
-
-- Official forum: <https://answer.moodiary.net>
-- Telegram: <https://t.me/openmoodiary>
-- QQ group: 760014526
+| Page | Covers |
+| --- | --- |
+| [Development setup](./setup) | Toolchain beyond Flutter, first run, generated code, troubleshooting |
+| [Architecture](./architecture) | Layers, rules CI enforces, native code, conventions |
+| [Testing](./testing) | CI jobs, running checks locally, writing tests |
+| [Pull requests](./pull-requests) | Title format, footers, changelog |
+| [AI policy](./ai-policy) | Using AI tools in contributions |
 
 ::: tip Code of conduct
-Please stay kind and respectful. Harassment of any kind will be removed, and repeat offenders will be barred from taking part.
+Be kind and respectful. Harassment is removed, and repeat offenders are barred from taking part.
 :::
