@@ -57,6 +57,5 @@ These conventions are what keep more than 30 packages consistent as they evolve.
 
 ## Commits and versions
 
-- Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), which is how CI generates the CHANGELOG.
-- To keep a PR out of the CHANGELOG, put `Changelog: skip` in the body of the squashed commit, or use one of the skipped scopes (`chore(deps|readme|pr|pull)`).
+- Commit and PR title conventions are defined in the [Pull requests section of CONTRIBUTING.md](https://github.com/ZhuJHua/moodiary/blob/develop/CONTRIBUTING.md#pull-requests).
 - **Every version is pinned exactly.** The one exception is melos in the root `pubspec.yaml`.

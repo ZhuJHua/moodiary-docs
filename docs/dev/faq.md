@@ -6,7 +6,7 @@ The usual pitfalls on the development side. For questions as a user, head to the
 
 ### `flutter test` finds no tests
 
-There are no tests in the repository root. Use `dart tool/task.dart test` (which fans out to the packages) and `test-mobile`.
+The repository root has no `test/` directory. Use `dart tool/task.dart test`, which passes the affected packages' `test/` directories to `flutter test`, or `test-mobile` for `mobile/`.
 
 ### The APK size doesn't change after I modify a Rust dependency
 

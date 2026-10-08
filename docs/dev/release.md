@@ -28,17 +28,9 @@ From there:
 6. review the CHANGELOG section and the artifacts by hand, then **merge the PR**;
 7. the merge triggers `publish-release.yml`, which publishes the draft release — this is the step that actually creates the tag and posts a notification to the Telegram channel.
 
-## Keeping a PR out of the CHANGELOG
+## Commit messages and the CHANGELOG
 
-Any one of these is enough:
-
-- the body of the squashed commit contains `Changelog: skip`;
-- the title uses one of the skipped scopes: `chore(deps)`, `chore(readme)`, `chore(pr)`, `chore(pull)`;
-- release commits themselves (`chore(release)`) are skipped automatically.
-
-## Commit message conventions
-
-CI builds the CHANGELOG and labels PRs automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) prefixes, so use `feat:`, `fix:`, `chore:` and the like.
+git-cliff groups the CHANGELOG by the type in each squash commit subject. The title rules, the footers (such as `Changelog: skip`) and the scopes the CHANGELOG skips are defined in the [Pull requests section of CONTRIBUTING.md](https://github.com/ZhuJHua/moodiary/blob/develop/CONTRIBUTING.md#pull-requests).
 
 ## Build artifacts
 

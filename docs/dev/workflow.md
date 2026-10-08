@@ -6,6 +6,8 @@ Everything you do day to day goes through `tool/task.dart`, run from the reposit
 dart tool/task.dart <command>
 ```
 
+The commands for setting up, running and checking a change before a PR are in [CONTRIBUTING.md](https://github.com/ZhuJHua/moodiary/blob/develop/CONTRIBUTING.md#development-setup). This page lists every command and explains how testing works.
+
 ## Command reference
 
 | Command | What it does |
@@ -16,67 +18,37 @@ dart tool/task.dart <command>
 | `build-ios` | Builds for iOS |
 | `analyze` | Generated-output consistency + layer check + `flutter analyze` |
 | `check-layers` | Runs only the layer check |
-| `test` | Runs the affected packages (see below) |
+| `test` | Runs the tests of the affected packages (see below) |
 | `test-mobile` | Runs only the tests in `mobile/` |
 | `build-runner` | Runs `build_runner` across the workspace and formats the result |
 | `gen-rust` | Regenerates the Rust FFI bindings |
 | `i18n` | Regenerates the slang copy |
+| `migrations` | Writes the drift schema snapshot and the step-by-step migration code |
 | `gen` | `gen-rust` + `i18n` |
 | `deps` | Prints the package dependency graph |
 | `clean` | Clears the editor output and the build hook cache |
 
-## Running and building
-
-```bash
-dart tool/task.dart run                # development
-dart tool/task.dart run -- --release   # extra flutter arguments go after --
-dart tool/task.dart build-apk          # APK and iOS are the only two targets
-```
-
 ## Testing
 
 ```bash
-dart tool/task.dart test                 # default: packages touched since HEAD
-dart tool/task.dart test --diff=origin/develop
-dart tool/task.dart test --all           # the whole repository, which is what CI uses
+dart tool/task.dart test                       # default: the whole branch
+dart tool/task.dart test --diff=<ref>          # compare against another ref
+dart tool/task.dart test --all                 # the whole repository
 ```
 
-- "Affected" means the packages that changed relative to the baseline, plus everything that transitively depends on them.
-- Tests run **serially**, so that packages don't starve each other by running in parallel.
-- Only the legacy database migration tests need `ISAR_TEST_DYLIB` pointing at the dynamic library; nothing else requires setup.
+- By default the baseline is the merge-base with `origin/develop`. Uncommitted and untracked files count as changes too.
+- "Affected" means the packages that changed relative to the baseline, plus everything that transitively depends on them. A change to the root `pubspec.yaml`, or `--all`, runs everything.
+- The affected packages' `test/` directories are passed to a single `flutter test` run at the repository root. Build hooks and the frontend compiler therefore run once instead of once per package.
+- Only the legacy database migration tests need `ISAR_TEST_DYLIB` pointing at the dynamic library. Nothing else requires setup.
 
 ::: warning
-Running `flutter test` directly in the repository root finds no tests at all. Always go through `task.dart`.
+Running `flutter test` on its own in the repository root finds no tests, because the root has no `test/` directory. Always go through `task.dart`.
 :::
 
-## Code generation
+## Rust and editor checks
 
-```bash
-dart tool/task.dart build-runner   # injectable / freezed / json_serializable
-dart tool/task.dart gen-rust       # after changing rust/src/api
-dart tool/task.dart i18n           # after changing *.i18n.json
-```
-
-See [Code generation](./codegen) for the details.
-
-## Checks on the Rust side
-
-```bash
-for d in packages/foundation/*/rust; do
-  (cd "$d" && cargo clippy --all-targets -- -D warnings && cargo test)
-done
-```
-
-Note the glob over `packages/foundation/*/rust`: iterating over a hand-written list of package names makes it easy to miss `moodiary_rust`.
-
-## The editor (WebView)
-
-```bash
-cd packages/feature_base/moodiary_editor/editor
-corepack pnpm type-check
-corepack pnpm test
-```
+The commands are in the [Before you open a PR section of CONTRIBUTING.md](https://github.com/ZhuJHua/moodiary/blob/develop/CONTRIBUTING.md#before-you-open-a-pr). The Rust loop iterates over the glob `packages/foundation/*/rust`. A hand-written list of package names makes it easy to miss `moodiary_rust`.
 
 ## Melos
 
-Use `melos bootstrap` to activate the workspace and rebuild the IDE module files; `melos list` and `melos run <script> --category <layer>` let you filter by layer. For everyday code generation, checks and tests, stick to `task.dart` — it guards the order in which things run.
+`melos bootstrap` activates the workspace and rebuilds the IDE module files. `melos list` and `melos run <script> --category <layer>` filter by layer. For code generation, checks and tests, use `task.dart`, because it runs the steps in the right order.

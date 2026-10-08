@@ -57,6 +57,5 @@
 
 ## 提交与版本
 
-- 提交信息遵循 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/)，CI 依据它生成 CHANGELOG；
-- 不希望进入 CHANGELOG 的 PR：在压缩后的提交正文写 `Changelog: skip`，或使用会被跳过的 scope（`chore(deps|readme|pr|pull)`）；
+- 提交信息和 PR 标题规范见 [CONTRIBUTING.zh.md 的 Pull Request 一节](https://github.com/ZhuJHua/moodiary/blob/develop/CONTRIBUTING.zh.md#pull-request)；
 - **所有版本号精确钉定**，唯一例外是根 `pubspec.yaml` 中的 melos。

@@ -28,17 +28,9 @@ dart tool/release.dart --bump patch     # 或显式指定版本：dart tool/rele
 6. 人工检查 CHANGELOG 段落与产物，**合并该 PR**；
 7. 合并触发 `publish-release.yml`，将 draft release 转正 —— 这一步才真正创建 tag，并向 Telegram 频道推送通知。
 
-## 让某个 PR 不进入 CHANGELOG
+## 提交信息与 CHANGELOG
 
-满足以下任一条件即可：
-
-- 压缩后的提交正文中包含 `Changelog: skip`；
-- 标题使用会被跳过的 scope：`chore(deps)`、`chore(readme)`、`chore(pr)`、`chore(pull)`；
-- release 提交本身（`chore(release)`）自动跳过。
-
-## 提交信息规范
-
-CI 依据 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/) 前缀生成 CHANGELOG 并自动给 PR 打标签，请使用 `feat:`、`fix:`、`chore:` 等前缀。
+git-cliff 按 squash 提交标题里的类型给 CHANGELOG 分组。标题规则、footer（如 `Changelog: skip`）和会被 CHANGELOG 跳过的 scope 见 [CONTRIBUTING.zh.md 的 Pull Request 一节](https://github.com/ZhuJHua/moodiary/blob/develop/CONTRIBUTING.zh.md#pull-request)。
 
 ## 构建产物
 

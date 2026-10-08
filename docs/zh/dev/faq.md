@@ -6,7 +6,7 @@
 
 ### `flutter test` 找不到任何测试
 
-仓库根目录没有测试。请使用 `dart tool/task.dart test`（会分发到各包）与 `test-mobile`。
+仓库根目录没有 `test/` 目录。请使用 `dart tool/task.dart test`，它会把受影响的包的 `test/` 目录交给 `flutter test`；只测 `mobile/` 时用 `test-mobile`。
 
 ### 修改 Rust 依赖后 APK 体积没有变化
 

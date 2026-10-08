@@ -1,6 +1,6 @@
 # Testing
 
-Moodiary's tests are spread across three tracks — Dart, Rust and the editor — and CI runs all of them on every Pull Request.
+Moodiary's tests are spread across three tracks: Dart, Rust and the editor. CI runs each track on a Pull Request unless the PR's changed paths cannot affect it.
 
 ## Dart
 
@@ -10,8 +10,8 @@ dart tool/task.dart test --all    # the whole repository
 dart tool/task.dart test-mobile   # mobile/ only
 ```
 
-- "Affected" is computed from `--diff=<ref>` (default `HEAD`, including uncommitted and untracked files), plus everything that transitively depends on those packages.
-- Tests run serially.
+- "Affected" is computed from `--diff=<ref>` (default: the merge-base with `origin/develop`, including uncommitted and untracked files), plus everything that transitively depends on those packages.
+- The affected packages' `test/` directories run in a single `flutter test` process at the repository root.
 - The only tests that need the `ISAR_TEST_DYLIB` environment variable are the legacy database migration tests.
 
 ### Writing repository tests

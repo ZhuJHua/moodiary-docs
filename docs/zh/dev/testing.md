@@ -1,6 +1,6 @@
 # 测试
 
-Moodiary 的测试分布在 Dart、Rust 与编辑器三条线上，CI 会在每次 Pull Request 上全部执行。
+Moodiary 的测试分布在 Dart、Rust 与编辑器三条线上。CI 在 Pull Request 上会执行每条线，PR 改动的路径影响不到的线除外。
 
 ## Dart
 
@@ -10,8 +10,8 @@ dart tool/task.dart test --all    # 全仓
 dart tool/task.dart test-mobile   # 仅 mobile/
 ```
 
-- 「受影响」依据 `--diff=<ref>`（默认 `HEAD`，含未提交与未跟踪文件）计算，再加上这些包的传递依赖方；
-- 串行执行；
+- 「受影响」依据 `--diff=<ref>`（默认是与 `origin/develop` 的 merge-base，含未提交与未跟踪文件）计算，再加上这些包的传递依赖方；
+- 受影响的包的 `test/` 目录在仓库根目录下由一次 `flutter test` 执行；
 - 只有旧版数据库迁移测试需要 `ISAR_TEST_DYLIB` 环境变量。
 
 ### 仓库测试的写法
