@@ -170,7 +170,7 @@ export default defineConfig({
 
         editLink: {
           pattern:
-            'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
+            'https://github.com/ZhuJHua/moodiary-docs/edit/main/docs/:path',
           text: 'Edit this page on GitHub',
         },
 
@@ -281,7 +281,7 @@ export default defineConfig({
 
         editLink: {
           pattern:
-            'https://github.com/ZhuJHua/moodiary-docs/edit/master/docs/:path',
+            'https://github.com/ZhuJHua/moodiary-docs/edit/main/docs/:path',
           text: '在 GitHub 上编辑此页',
         },
 
