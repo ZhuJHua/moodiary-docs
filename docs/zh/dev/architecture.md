@@ -49,4 +49,4 @@ foundation  ->  core  ->  feature_base  ->  feature  ->  mobile/
 - **路由** 使用 go_router，不用路径参数和查询参数。路由类都在 `moodiary_router`，通过 `extra` 传递只含 JSON 标量的 `params`。每个页面提供 `factory X.fromRoute(GoRouterState)`。
 - **i18n** 使用 [slang](https://pub.dev/packages/slang)。App 文案在 `i18n/flutter`，编辑器页面文案在 `i18n/web`。新增文案 `zh` 和 `en` 都要写。Widget 里用 `context.l10n`，服务里用顶层 `l10n`。发给模型的提示词和工具描述硬编码为英文，不进入 i18n。
 - **KV 存储**（MMKV）是同步的。API Key 等密钥放在 `MoodiarySecureKVs`。应用锁密码只能通过 `AppLockPin` 读写。
-- **数据格式**：修改数据库结构、同步布局或局域网协议必须带迁移方案。按 PR 模板的要求，在 `BREAKING CHANGE:` footer 里写明。见 [Pull Request](./pull-requests#description-and-footers)。
+- **数据格式**：修改数据库结构、同步布局或局域网协议必须带迁移方案，并在 PR 描述里写明。破坏性的改动还要加上 `BREAKING CHANGE:` footer。见 [Pull Request](./pull-requests#description-and-footers)。

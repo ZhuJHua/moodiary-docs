@@ -20,7 +20,7 @@ Ask questions on the [forum](https://answer.moodiary.net), in the Telegram group
 3. **One topic per PR.**
 4. **Follow the [PR conventions](./pull-requests).** The title is a Conventional Commit, and the title and description are in English.
 5. **CI must be green.** Run the [checks](./testing#running-the-same-checks-locally) locally first.
-6. **Read the [AI policy](./ai-policy)** if you use AI tools.
+6. **AI tools are welcome.** The [AI policy](./ai-policy) has the one requirement.
 
 Releases are cut by the maintainer.
 
@@ -32,7 +32,7 @@ Releases are cut by the maintainer.
 | [Architecture](./architecture) | Layers, rules CI enforces, native code, conventions |
 | [Testing](./testing) | CI jobs, running checks locally, writing tests |
 | [Pull requests](./pull-requests) | Title format, footers, changelog |
-| [AI policy](./ai-policy) | Rules for AI-assisted contributions |
+| [AI policy](./ai-policy) | Using AI tools in contributions |
 
 ::: tip Code of conduct
 Be kind and respectful. Harassment is removed, and repeat offenders are barred from taking part.

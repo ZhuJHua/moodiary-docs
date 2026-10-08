@@ -9,7 +9,7 @@ PR 会 squash 合并。**PR 标题就是提交标题**，**PR 描述就是提交
 - 跑覆盖你改动范围的检查（见 [测试](./testing#running-the-same-checks-locally)）。所有运行了的 CI 任务都通过后才会评审。
 - 重新生成并提交生成文件，新增文案 `zh` 和 `en` 都要写。
 - UI 改动请在真机或模拟器上试过，并附截图。
-- 如果使用了 AI 工具，请阅读 [AI 政策](./ai-policy)。
+- 欢迎使用 AI 工具。唯一的要求见 [AI 政策](./ai-policy)。
 
 ## 标题
 
@@ -52,7 +52,7 @@ GitHub 的 Revert 按钮生成的标题形如 `Revert "…"`，过不了检查�
 
 ## 描述与 footer {#description-and-footers}
 
-按 PR 模板填写：改了什么、为什么、怎么测的，以及是否使用了 AI 工具。用不到的段落删掉。
+按 PR 模板填写：改了什么、为什么、怎么测的。「AI usage」一节可以不填。用不到的段落删掉。
 
 footer 放在描述末尾，和上文之间隔一个空行，每行一个，格式为 `Token: value` 或 `Token #value`：
 
@@ -62,12 +62,14 @@ footer 放在描述末尾，和上文之间隔一个空行，每行一个，格�
 | `Changelog: skip` | 不写进 `CHANGELOG.md` |
 | `Closes #123` | 合并后关闭对应 issue |
 
-破坏性变更指：已有数据、备份、同步远端或局域网对端不经迁移就无法继续使用，或者删除了用户可见的功能。修改数据库结构、同步布局或局域网协议时，必须在 `BREAKING CHANGE:` footer 里写明，并附上迁移方案。
+破坏性变更指：已有数据、备份、同步远端或局域网对端不经迁移就无法继续使用，或者删除了用户可见的功能。
+
+修改数据库结构、同步布局或局域网协议时，都要在描述里写明，并附上迁移方案。如果是破坏性变更，还要加上 `BREAKING CHANGE:` footer。
 
 ## CHANGELOG
 
 维护者发版时用 git-cliff 生成 `CHANGELOG.md`，按上表的类型分组。
 
-- 这些 scope 总是被跳过：`chore(deps)`、`chore(readme)`、`chore(pr)`、`chore(pull)`、`chore(release)`。
-- 破坏性 PR 总会出现在 CHANGELOG 里，即使用了会被跳过的 scope。
+- 破坏性 PR（标题带 `!` 或有 `BREAKING CHANGE:` footer）放在最前面的 **💥 Breaking Changes** 分组。它们不会被跳过，即使写了 `Changelog: skip` 或用了会被跳过的 scope。
+- 这些 scope 会被跳过：`chore(deps)`、`chore(readme)`、`chore(pr)`、`chore(pull)`、`chore(release)`。
 - PR 里不要改版本号或 `CHANGELOG.md`。

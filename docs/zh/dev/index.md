@@ -20,7 +20,7 @@ Moodiary 是一个基于 Flutter + Rust 的开源日记应用，采用 [AGPL-3.0
 3. **一个 PR 只做一件事。**
 4. **遵循 [PR 规范](./pull-requests)。** 标题是约定式提交，标题和描述都用英文。
 5. **CI 必须全绿。** 先在本地跑一遍[检查](./testing#running-the-same-checks-locally)。
-6. 使用 AI 工具前，**阅读 [AI 政策](./ai-policy)**。
+6. **欢迎使用 AI 工具。** 唯一的要求见 [AI 政策](./ai-policy)。
 
 发版由维护者负责。
 
@@ -32,7 +32,7 @@ Moodiary 是一个基于 Flutter + Rust 的开源日记应用，采用 [AGPL-3.0
 | [架构](./architecture) | 分层、CI 检查的规则、原生代码、约定 |
 | [测试](./testing) | CI 任务、本地检查、编写测试 |
 | [Pull Request](./pull-requests) | 标题格式、footer、CHANGELOG |
-| [AI 政策](./ai-policy) | 使用 AI 辅助贡献的规则 |
+| [AI 政策](./ai-policy) | 在贡献中使用 AI 工具 |
 
 ::: tip 行为准则
 请保持友善与尊重。骚扰内容会被移除，屡犯者将被限制参与。

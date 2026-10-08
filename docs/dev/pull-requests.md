@@ -9,7 +9,7 @@ PRs are squash-merged. The **PR title becomes the commit subject** and the **PR 
 - Run the checks for what you touched (see [Testing](./testing#running-the-same-checks-locally)). Every CI job that runs must be green before review.
 - Regenerate and commit generated files, and add new strings in both `zh` and `en`.
 - For UI changes, try them on a device or emulator and attach screenshots.
-- If you used AI tools, read the [AI policy](./ai-policy).
+- AI tools are welcome. See the [AI policy](./ai-policy) for the one requirement.
 
 ## Title
 
@@ -52,7 +52,7 @@ GitHub's Revert button creates a title of the form `Revert "…"`, which the che
 
 ## Description and footers
 
-Fill in the PR template: what changed and why, how you tested it, and whether you used AI tools. Delete the sections that don't apply.
+Fill in the PR template: what changed and why, and how you tested it. The "AI usage" section is optional. Delete the sections that don't apply.
 
 Footers go at the end of the description, after a blank line, one per line, in the form `Token: value` or `Token #value`:
 
@@ -62,12 +62,14 @@ Footers go at the end of the description, after a blank line, one per line, in t
 | `Changelog: skip` | Keeps the PR out of `CHANGELOG.md` |
 | `Closes #123` | Closes the issue on merge |
 
-A breaking change is anything that stops existing data, backups, sync remotes or LAN peers from working without a migration, or that removes a user-facing feature. A change to the database schema, the sync layout or the LAN protocol must be described in a `BREAKING CHANGE:` footer together with its migration path.
+A breaking change is anything that stops existing data, backups, sync remotes or LAN peers from working without a migration, or that removes a user-facing feature.
+
+Call out every change to the database schema, the sync layout or the LAN protocol in the description, together with its migration path. If the change is breaking, also add a `BREAKING CHANGE:` footer.
 
 ## Changelog
 
 The maintainer generates `CHANGELOG.md` with git-cliff when cutting a release, grouping commits by type as in the table above.
 
-- These scopes are always left out: `chore(deps)`, `chore(readme)`, `chore(pr)`, `chore(pull)`, `chore(release)`.
-- Breaking PRs always appear, even under a skipped scope.
+- Breaking PRs (`!` in the title or a `BREAKING CHANGE:` footer) go into a leading **💥 Breaking Changes** group. They are never skipped, even with `Changelog: skip` or a skipped scope.
+- These scopes are left out: `chore(deps)`, `chore(readme)`, `chore(pr)`, `chore(pull)`, `chore(release)`.
 - Don't bump versions or edit `CHANGELOG.md` in a PR.
