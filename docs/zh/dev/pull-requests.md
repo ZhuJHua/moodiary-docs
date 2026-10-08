@@ -9,7 +9,7 @@ PR 会 squash 合并。**PR 标题就是提交标题**，**PR 描述就是提交
 - 跑覆盖你改动范围的检查（见 [测试](./testing#running-the-same-checks-locally)）。所有运行了的 CI 任务都通过后才会评审。
 - 重新生成并提交生成文件，新增文案 `zh` 和 `en` 都要写。
 - UI 改动请在真机或模拟器上试过，并附截图。
-- 欢迎使用 AI 工具。唯一的要求见 [AI 政策](./ai-policy)。
+- 欢迎使用 AI 工具。它生成的每一行你都要读过，并能解释清楚，见 [AI 政策](./ai-policy)。
 
 ## 标题
 
@@ -52,7 +52,7 @@ GitHub 的 Revert 按钮生成的标题形如 `Revert "…"`，过不了检查�
 
 ## 描述与 footer {#description-and-footers}
 
-按 PR 模板填写：改了什么、为什么、怎么测的。「AI usage」一节可以不填。用不到的段落删掉。
+按 PR 模板填写：改了什么、为什么、怎么测的。「AI usage」一节可以不填，也可以改用一行 `Assisted-by: <工具>`。用不到的段落删掉。
 
 footer 放在描述末尾，和上文之间隔一个空行，每行一个，格式为 `Token: value` 或 `Token #value`：
 

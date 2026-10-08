@@ -9,7 +9,7 @@ PRs are squash-merged. The **PR title becomes the commit subject** and the **PR 
 - Run the checks for what you touched (see [Testing](./testing#running-the-same-checks-locally)). Every CI job that runs must be green before review.
 - Regenerate and commit generated files, and add new strings in both `zh` and `en`.
 - For UI changes, try them on a device or emulator and attach screenshots.
-- AI tools are welcome. See the [AI policy](./ai-policy) for the one requirement.
+- AI tools are welcome. Read every line they produce and be ready to explain it; see the [AI policy](./ai-policy).
 
 ## Title
 
@@ -52,7 +52,7 @@ GitHub's Revert button creates a title of the form `Revert "…"`, which the che
 
 ## Description and footers
 
-Fill in the PR template: what changed and why, and how you tested it. The "AI usage" section is optional. Delete the sections that don't apply.
+Fill in the PR template: what changed and why, and how you tested it. The "AI usage" section is optional; an `Assisted-by: <tool>` line works too. Delete the sections that don't apply.
 
 Footers go at the end of the description, after a blank line, one per line, in the form `Token: value` or `Token #value`:
 

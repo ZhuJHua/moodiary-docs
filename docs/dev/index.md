@@ -20,7 +20,7 @@ Ask questions on the [forum](https://answer.moodiary.net), in the Telegram group
 3. **One topic per PR.**
 4. **Follow the [PR conventions](./pull-requests).** The title is a Conventional Commit, and the title and description are in English.
 5. **CI must be green.** Run the [checks](./testing#running-the-same-checks-locally) locally first.
-6. **AI tools are welcome.** The [AI policy](./ai-policy) has the one requirement.
+6. **AI tools are welcome.** You still review, understand and own the result; see the [AI policy](./ai-policy).
 
 Releases are cut by the maintainer.
 
